@@ -35,6 +35,22 @@ int Item::getAmount(){
     return amount;
 }
 
-void Item::setAmount(int increase){
-    amount += increase;
+void Item::setAmount(int change){
+    amount += change;
+    if(amount == 0) owned = false;
+}
+
+bool Item::isOwned(){
+    return owned;
+}
+
+void Item::setOwned(bool owned){
+    this->owned = owned;
+}
+
+string Item::toString(){
+    return "Name: " + name +
+           "\nAmount: " + to_string(amount) +
+           "\nTime Taken: " + to_string(timeMod) +
+           "\nDescription: " + description;
 }

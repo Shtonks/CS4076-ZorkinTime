@@ -9,13 +9,18 @@ class Trap : public Item {
         int maxDmg;
         int baseDmg;
         int dealtDmg;
-        bool effective;
+        bool vulnerable;
+        bool resistant;
     public:
-        Trap(string name, string description, int timeMod, string dmgType,int baseDmg, int maxDmg, bool effective);
+        Trap(string name, string description, int timeMod, string dmgType, int baseDmg, int maxDmg);
         string getDmgType();
         void setDmgType(string dmgtype);
-        void setDealtDmg(); //calculates damage dealt between 1 - maxDamage
+        void setDealtDmg(); //<ISHA> calculates damage dealt between baseDamage - maxDamage
+        void setDealtDmg(double factor); //<ISHA> Multiplies Dealt damage by a factor depending on room
         int getDealtDmg();
-        void setEffective(bool e);
-        bool isEffective();
+        void setVulnerable(bool vulnerable);
+        bool isVulnerable();
+        void setResistant(bool resistant);
+        bool isResistant();
+        string toString();
 };
