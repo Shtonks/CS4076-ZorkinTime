@@ -1,5 +1,4 @@
-#ifndef ZORKUL_H_
-#define ZORKUL_H_
+#pragma once
 
 #include "Command.h"
 #include "Parser.h"
@@ -28,5 +27,3 @@ public:
 	void play();
 	string go(string direction);
 };
-
-#endif /*ZORKUL_H_*/
