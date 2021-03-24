@@ -24,6 +24,10 @@ void Item::setDescription(string desc){
     description = desc;
 }
 
+int Item::getTimeMod(){
+    return timeMod;
+}
+
 void Item::setTimeMod(int newMod){
 	timeMod = newMod;
 }
