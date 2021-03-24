@@ -72,6 +72,7 @@ void Room::placeTrap(Trap* t){
         t->setDealtDmg(1.5);
     }
     trapInRoom = t;
+    t->setAmount(-1); //<ISHA> placing a trap consumes one
 }
 /*
 <LUKE> maybe maybe maybe
