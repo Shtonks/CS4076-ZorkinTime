@@ -6,19 +6,19 @@
 #include <string>
 
 using namespace std;
-#include "ZorkUL.h"
+#include "World.h"
 
 int main() {
-	ZorkUL temp;
-	temp.play();
-	return 0;
+    World temp;
+    temp.play();
+    return 0;
 }
 
-ZorkUL::ZorkUL() {
-	createRooms();
+World::World() {
+    createRooms();
 }
 
-void ZorkUL::createRooms()  {
+void World::createRooms()  {
     const int numOfRooms = 16;
     string dmgBonusRooms[numOfRooms] = {"Room of Nothing Extraordinary",
                               "Room of Nothing Extraordinary",
@@ -81,41 +81,41 @@ void ZorkUL::createRooms()  {
 /**
  *  Main play routine.  Loops until end of play.
  */
-void ZorkUL::play() {
-	printWelcome();
+void World::play() {
+    printWelcome();
 
 
-	bool finished = false;
-	while (!finished) {
-		// Create pointer to command and give it a command.
-		Command* command = parser.getCommand();
-		// Pass dereferenced command and check for end of game.
-		finished = processCommand(*command);
-		// Free the memory allocated by "parser.getCommand()"
-		//   with ("return new Command(...)")
-		delete command;
-	}
-	cout << endl;
-	cout << "end" << endl;
+    bool finished = false;
+    while (!finished) {
+        // Create pointer to command and give it a command.
+        Command* command = parser.getCommand();
+        // Pass dereferenced command and check for end of game.
+        finished = processCommand(*command);
+        // Free the memory allocated by "parser.getCommand()"
+        //   with ("return new Command(...)")
+        delete command;
+    }
+    cout << endl;
+    cout << "end" << endl;
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
-void ZorkUL::printWelcome() {
+void World::printWelcome() {
     cout << "You have " << numMoves << " before death comes searching for you "
     " and you're crystal"<< endl;
     cout << "Make good use of you're time. Prepare"<< endl;
-	cout << endl;
+    cout << endl;
     cout << "You begin in " << currentRoom->getDescription() << endl;
 }
 
 
-string ZorkUL::go(string direction) {
-	Room* nextRoom = currentRoom->nextRoom(direction);
-	if (nextRoom == NULL)
-		return("direction null");
-	else
-	{
-		currentRoom = nextRoom;
+string World::go(string direction) {
+    Room* nextRoom = currentRoom->nextRoom(direction);
+    if (nextRoom == NULL)
+        return("direction null");
+    else
+    {
+        currentRoom = nextRoom;
         return currentRoom->getDescription();
     }
 }
