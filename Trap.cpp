@@ -1,9 +1,10 @@
 #include "Trap.h"
 #include <string>
 
-Trap::Trap(string name, string description, string dmgType, int maxDmg, int timeMod, bool effective){
+Trap::Trap(string name, string description, int timeMod, string dmgType,int baseDmg, int maxDmg, bool effective){
     Item(name,description,timeMod);
     this->dmgType = dmgType;
+    this->baseDmg = baseDmg;
     this->maxDmg = maxDmg;
     this->effective = effective;
     setDealtDmg();
@@ -18,8 +19,8 @@ void Trap::setDmgType(string dmgtype){
 }
 
 void Trap::setDealtDmg(){
-    dealtDmg = rand() % maxDmg + 1;
-} //calculates damage dealt between 1 - maxDamage
+    dealtDmg = rand() % (maxDmg-baseDmg) + baseDmg;
+} //calculates damage dealt between baseDmg - maxDmg
 
 int Trap::getDealtDmg(){
     return dealtDmg;
