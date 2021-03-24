@@ -17,14 +17,17 @@ void Trap::setDmgType(string dmgtype){
     this->dmgType = dmgtype;
 }
 
-int Trap::setDealtDmg(){
+void Trap::setDealtDmg(){
     dealtDmg = rand() % maxDmg + 1;
-    if(effective) dealtDmg *= 2;
-    return dealtDmg;
 } //calculates damage dealt between 1 - maxDamage
+
+int Trap::getDealtDmg(){
+    return dealtDmg;
+}
 
 void Trap::setEffective(bool effective){
     this->effective = effective;
+    if(effective) dealtDmg *= 2;
 }
 
 bool Trap::isEffective(){

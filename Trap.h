@@ -13,7 +13,8 @@ class Trap : public Item {
         Trap(string name, string description, string dmgType, int maxDmg, int timeMod, bool effective);
         string getDmgType();
         void setDmgType(string dmgtype);
-        int setDealtDmg(); //calculates damage dealt between 1 - maxDamage
+        void setDealtDmg(); //calculates damage dealt between 1 - maxDamage
+        int getDealtDmg();
         void setEffective(bool e);
         bool isEffective();
 };
