@@ -8,7 +8,7 @@
 #include <string>
 using namespace std;
 
-class ZorkUL {
+class World {
 private:
 	Parser parser;
     vector<Room*> genRooms; //<LUKE> short for generated rooms
