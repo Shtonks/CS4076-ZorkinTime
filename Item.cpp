@@ -1,11 +1,10 @@
 #include "Item.h"
 
-Item::Item(){}
-
 Item::Item (string n, string d, int t) {
 	name = n;
 	description = d;
     timeMod = t;
+    amount = 1;
 }
 
 string Item::getName(){
@@ -30,4 +29,12 @@ int Item::getTimeMod(){
 
 void Item::setTimeMod(int newMod){
 	timeMod = newMod;
+}
+
+int Item::getAmount(){
+    return amount;
+}
+
+void Item::setAmount(int increase){
+    amount += increase;
 }

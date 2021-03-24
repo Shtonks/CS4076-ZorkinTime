@@ -10,8 +10,8 @@ class Item {
 		string description;
 		string name;
 		int timeMod;
-
-	public:
+        int amount;
+    public:
         Item();
         Item (string name, string description, int timeMod);
 		string getName();
@@ -20,4 +20,6 @@ class Item {
         void setDescription(string desc);
         int getTimeMod();
 		void setTimeMod(int newMod);
+        int getAmount();
+        void setAmount(int amount);
 };
