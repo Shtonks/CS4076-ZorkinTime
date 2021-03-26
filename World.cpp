@@ -8,12 +8,6 @@
 using namespace std;
 #include "World.h"
 
-int main() {
-    World temp;
-    temp.play();
-    return 0;
-}
-
 World::World() {
     createRooms();
 }
