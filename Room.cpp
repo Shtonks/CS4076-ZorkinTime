@@ -1,5 +1,4 @@
 #include "Room.h"
-#include "Command.h"
 
 
 Room::Room(string description) {
@@ -9,13 +8,13 @@ Room::Room(string description) {
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 	if (north != NULL)
-		exits["north"] = north;
+        exits["North"] = north;
 	if (east != NULL)
-		exits["east"] = east;
+        exits["East"] = east;
 	if (south != NULL)
-		exits["south"] = south;
+        exits["South"] = south;
 	if (west != NULL)
-		exits["west"] = west;
+        exits["West"] = west;
 }
 
 string Room::getDescription() {
@@ -26,6 +25,8 @@ string Room::getDescription() {
 void Room::findBonusDmgType(string type){
     if(type.find("Sword") != string::npos){
         bonusDmgType = "slashing";
+        //this needs to be replicated all way down
+        icon = "sword.pngWIthAdress";
         return;
     }
     else if(type.find("Spear") != string::npos){
@@ -62,6 +63,7 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
+
 void Room::placeTrap(Trap* t){
     if(trapInRoom == nullptr){
         return;
@@ -72,8 +74,12 @@ void Room::placeTrap(Trap* t){
         t->setDealtDmg(1.5);
     }
     trapInRoom = t;
-    t->setAmount(-1); //<ISHA> placing a trap consumes one
 }
+
+string Room::getIcon(){
+    return icon;
+}
+
 /*
 <LUKE> maybe maybe maybe
 void Room::addItem(Item *inItem) {

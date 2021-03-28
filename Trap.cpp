@@ -2,7 +2,7 @@
 #include <string>
 
 Trap::Trap(string name, string description, int timeMod, string dmgType,int baseDmg, int maxDmg){
-    Item(name,description,timeMod);
+    Item(name, description, timeMod);
     this->dmgType = dmgType;
     this->baseDmg = baseDmg;
     this->maxDmg = maxDmg;

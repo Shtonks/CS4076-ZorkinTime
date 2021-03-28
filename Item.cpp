@@ -1,6 +1,8 @@
 #include "Item.h"
 
-Item::Item (string n, string d, int t) {
+Item::Item(){}
+
+Item::Item(string n, string d, int t) {
 	name = n;
 	description = d;
     timeMod = t;

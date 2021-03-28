@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <string>
 #include <iostream>
 using namespace std;
@@ -11,9 +12,10 @@ class Item {
 		int timeMod;
         int amount;
         bool owned;
+
     public:
         Item();
-        Item (string name, string description, int timeMod);
+        Item(string name, string description, int timeMod);
 		string getName();
         void setName(string name);
 		string getDescription();

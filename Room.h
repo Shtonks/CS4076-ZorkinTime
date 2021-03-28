@@ -20,6 +20,7 @@ private:
     void findBonusDmgType(string type);
     string bonusDmgType = "nothing";
     Trap *trapInRoom = nullptr;
+    string icon;
 
 public:
     Room(string description);
@@ -32,6 +33,7 @@ public:
     //void removeItemFromRoom(int location);
     inline string getBonusDmgType();
     void placeTrap(Trap* t);
+    string getIcon();
 };
 
 #endif

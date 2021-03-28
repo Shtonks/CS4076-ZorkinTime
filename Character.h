@@ -1,6 +1,6 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
-#include "ZorkUL.h"
+#include "World.h"
 
 #include <string>
 using namespace std;

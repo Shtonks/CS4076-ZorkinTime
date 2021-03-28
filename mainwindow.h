@@ -19,6 +19,9 @@ public:
 private slots:
     void on_Up_clicked();
     void on_Down_clicked();
+    void on_Right_clicked();
+    void on_swordBlueprint_clicked();
+    void addItem(Item *thing);
 
 private:
     Ui::MainWindow *ui;

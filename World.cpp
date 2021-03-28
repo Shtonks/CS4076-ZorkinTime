@@ -1,5 +1,4 @@
 #include <iostream>
-//<LUKE>move all these??
 #include <algorithm>    // std::shuffle
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
@@ -14,6 +13,7 @@ World::World() {
 
 void World::createRooms()  {
     const int numOfRooms = 16;
+
     string dmgBonusRooms[numOfRooms] = {"Room of Nothing Extraordinary",
                               "Room of Nothing Extraordinary",
                               "Room of Nothing Extraordinary",
@@ -33,13 +33,13 @@ void World::createRooms()  {
 
     // obtain a time-based seed
     //<LUKE> Means complete guarenteed randomness when assigning rooms
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
-    shuffle (dmgBonusRooms, dmgBonusRooms + numOfRooms, std::default_random_engine(seed));
+    shuffle (dmgBonusRooms, dmgBonusRooms + numOfRooms, default_random_engine(seed));
 
     for(int i = 0; i < numOfRooms; i++){
-        genRooms.push_back(new Room(dmgBonusRooms[i]));
-        cout << genRooms[i]->getDescription() << endl;
+        genRooms[i] = new Room(dmgBonusRooms[i]);
+        //cout << genRooms[i]->getDescription() << endl;
     }
 
 
@@ -72,25 +72,23 @@ void World::createRooms()  {
 
 }
 
+void World::createItems(){
+
+}
+
 /**
  *  Main play routine.  Loops until end of play.
  */
 void World::play() {
     printWelcome();
 
-
+/*
     bool finished = false;
     while (!finished) {
-        // Create pointer to command and give it a command.
-        Command* command = parser.getCommand();
-        // Pass dereferenced command and check for end of game.
-        finished = processCommand(*command);
-        // Free the memory allocated by "parser.getCommand()"
-        //   with ("return new Command(...)")
-        delete command;
     }
     cout << endl;
     cout << "end" << endl;
+    */
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
@@ -110,6 +108,11 @@ string World::go(string direction) {
     else
     {
         currentRoom = nextRoom;
-        return currentRoom->getDescription();
+        //return currentRoom->getDescription();
+        string temp;
+        for(Room *x : genRooms)
+            temp += x->getDescription() + "\n";
+
+        return temp;
     }
 }

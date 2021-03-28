@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Command.h"
-#include "Parser.h"
 #include "Room.h"
 #include "Item.h"
 #include <iostream>
@@ -10,17 +8,14 @@ using namespace std;
 
 class World {
 private:
-    Parser parser;
-    vector<Room*> genRooms; //<LUKE> short for generated rooms
+    Room *genRooms[16];
     int numMoves = 100;
     Room *currentRoom;
     void createRooms();
-    void printWelcome();
-    bool processCommand(Command command);
-    void printHelp();
-    void goRoom(Command command);
     void createItems();
-    void displayItems();
+    void printWelcome();
+    //void printHelp();
+    //void displayItems();
 
 public:
     World();
