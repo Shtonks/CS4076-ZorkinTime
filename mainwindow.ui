@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Zork</class>
- <widget class="QMainWindow" name="Zork">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -684,7 +684,7 @@
      <string>Use</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -763,15 +763,11 @@
      </item>
     </layout>
    </widget>
+   <zorder>layoutWidget</zorder>
    <zorder>map</zorder>
    <zorder>textDisplay</zorder>
    <zorder>counter</zorder>
    <zorder>progressBar</zorder>
-   <zorder>Right</zorder>
-   <zorder>Up</zorder>
-   <zorder>Left</zorder>
-   <zorder>Down</zorder>
-   <zorder>pushButton_16</zorder>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>pushButton_3</zorder>
