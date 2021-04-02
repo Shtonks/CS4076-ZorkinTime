@@ -7,8 +7,9 @@
 using namespace std;
 #include "World.h"
 
-World::World() {
+World::World() : player("player") {
     createRooms();
+    createItems();
 }
 
 void World::createRooms()  {
@@ -67,12 +68,48 @@ void World::createRooms()  {
 
 
     //<LUKE> Random room I've picked for now. Could be randomised
-    currentRoom = genRooms[10];
-
-
+    setCurrentRoom(genRooms[10]);
 }
 
+Room* World::getCurrentRoom()
+{
+    return currentRoom;
+}
+
+void World::setCurrentRoom(Room* r)
+{
+    currentRoom = r;
+    for(int i = 0; i < 16; i++){
+        if(currentRoom == genRooms[i]){
+            if(i+1 < 10) currentRoomLabel = "room0" + std::to_string(i+1);
+            else currentRoomLabel = "room" + std::to_string(i+1);
+        }
+    }
+}
+
+string World::getCurrentRoomLabel(){
+    return currentRoomLabel;
+}
+
+
+Room** World::getGenRooms()
+{
+    return genRooms;
+    }
+
+//Trap(string name, string description, int timeMod, string dmgType, int baseDmg, int maxDmg);
 void World::createItems(){
+    //<LUKE> Completely randomly assigned vals
+    Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
+                           5, "slashing", 20, 30);
+    Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
+                                   5, "slashing", 4, 5);
+    Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
+                              5, "piercing", 20, 30);
+
+//    player.addTrap(*pendulum);
+//    player.addTrap(*stoneSoldiers);
+//    player.addTrap(*crossbow);
 
 }
 
@@ -101,18 +138,13 @@ void World::printWelcome() {
 }
 
 
-string World::go(string direction) {
+bool World::go(string direction) {
     Room* nextRoom = currentRoom->nextRoom(direction);
     if (nextRoom == NULL)
-        return("direction null");
+        return false;
     else
     {
-        currentRoom = nextRoom;
-        //return currentRoom->getDescription();
-        string temp;
-        for(Room *x : genRooms)
-            temp += x->getDescription() + "\n";
-
-        return temp;
+        setCurrentRoom(nextRoom);
+        return true;
     }
 }

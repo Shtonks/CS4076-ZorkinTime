@@ -26,27 +26,32 @@ void Room::findBonusDmgType(string type){
     if(type.find("Sword") != string::npos){
         bonusDmgType = "slashing";
         //this needs to be replicated all way down
-        icon = "sword.pngWIthAdress";
+        icon = "overlay-slash.png";
         return;
     }
     else if(type.find("Spear") != string::npos){
         bonusDmgType = "piercing";
+        icon = "overlay-pierce.png";
         return;
     }
     else if(type.find("Mace") != string::npos){
         bonusDmgType = "bludgeoning";
+        icon = "overlay-bludgeon.png";
         return;
     }
     else if(type.find("Flame") != string::npos){
         bonusDmgType = "fire";
+        icon = "overlay-fire.png";
         return;
     }
     else if(type.find("Frost") != string::npos){
         bonusDmgType = "cold";
+        icon = "overlay-ice.png";
         return;
     }
     else if(type.find("Snake") != string::npos){
         bonusDmgType = "poison";
+        icon = "overlay-poison.png";
         return;
     }
 }
@@ -64,20 +69,28 @@ Room* Room::nextRoom(string direction) {
 }
 
 
-void Room::placeTrap(Trap* t){
+void Room::placeTrap(Trap& t){
     if(trapInRoom == nullptr){
         return;
     }
-    if(t->getDmgType().compare(bonusDmgType)){
+    if(t.getDmgType().compare(bonusDmgType)){
         //<LUKE> Only temp. May need to be balanced
         //Future luke fix
-        t->setDealtDmg(1.5);
+        t.setDealtDmg(1.5);
     }
-    trapInRoom = t;
+    trapInRoom = &t;
 }
 
 string Room::getIcon(){
     return icon;
+}
+
+void Room::setIsPlayerInRoom(bool n){
+    isPlayerInRoom = n;
+}
+
+bool Room::getIsPlayerInRoom(){
+    return isPlayerInRoom;
 }
 
 /*

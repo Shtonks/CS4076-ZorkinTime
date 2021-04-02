@@ -19,8 +19,9 @@ private:
     vector <Item> itemsInRoom;
     void findBonusDmgType(string type);
     string bonusDmgType = "nothing";
-    Trap *trapInRoom = nullptr;
+    Trap* trapInRoom = nullptr;
     string icon;
+    bool isPlayerInRoom = false;
 
 public:
     Room(string description);
@@ -32,8 +33,10 @@ public:
     //int isItemInRoom(string inString);
     //void removeItemFromRoom(int location);
     inline string getBonusDmgType();
-    void placeTrap(Trap* t);
+    void placeTrap(Trap& t);
     string getIcon();
+    void setIsPlayerInRoom(bool n);
+    bool getIsPlayerInRoom();
 };
 
 #endif

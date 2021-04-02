@@ -1,0 +1,56 @@
+//<LUKE>.tci stand for template class implementation, something I copied/made up since there is not standard file extension
+#ifndef INVENTORYTEMPLATE_TCI
+#define INVENTORYTEMPLATE_TCI
+
+#include <vector>
+
+template <class T>
+class InventoryTemplate
+{
+private:
+    int length;
+    std::vector <T> *items{};
+
+public:
+
+    InventoryTemplate(int length)
+    {
+        if(length > 0){
+            items = new T[length]{};
+            this->length = length;
+        }
+    }
+
+    ~InventoryTemplate()
+    {
+        delete[] items;
+    }
+
+    void remove(T item){
+        for(T i : items){
+            if(i == item){
+                items->erase(i);
+            }
+        }
+    }
+
+    void add(const T &item){
+        items->push_back(item);
+    }
+
+    void get(T &item){
+
+    }
+ //not Lukes. stolen
+//    T& operator[](int index)
+//    {
+//        assert(index >= 0 && index < m_length);
+//        return m_data[index];
+//    }
+
+    int getLength() const{
+        return length;
+    }
+};
+
+#endif // INVENTORYTEMPLATE_TCI

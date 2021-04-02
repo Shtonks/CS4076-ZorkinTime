@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/Images/Direction">
+        <file>ZorkPics/downArrow.png</file>
+        <file>ZorkPics/leftArrow.png</file>
+        <file>ZorkPics/rightArrow.png</file>
+        <file>ZorkPics/upArrow.png</file>
+        <file>ZorkPics/Dark_green.png</file>
+        <file>ZorkPics/pigg.jpg</file>
+        <file>ZorkPics/spearRoom.png</file>
+        <file>ZorkPics/SwordRoom.png</file>
+        <file>ZorkPics/map.png</file>
+        <file>ZorkPics/highlight.png</file>
+        <file>ZorkPics/item-blue.png</file>
+        <file>ZorkPics/item-green.png</file>
+        <file>ZorkPics/item-white.png</file>
+        <file>ZorkPics/overlay-bludgeon.png</file>
+        <file>ZorkPics/overlay-fire.png</file>
+        <file>ZorkPics/overlay-ice.png</file>
+        <file>ZorkPics/overlay-pierce.png</file>
+        <file>ZorkPics/overlay-poison.png</file>
+        <file>ZorkPics/overlay-slash.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix1"/>
+</RCC>
