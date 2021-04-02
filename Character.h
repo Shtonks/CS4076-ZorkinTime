@@ -1,23 +1,22 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
-#include "World.h"
+//#include "World.h"
+#include "Trap.h"
+#include "InventoryTemplate.tci"
 
 #include <string>
 using namespace std;
-#include <vector>
-//using std::vector;
 
 
 class Character {
 private:
     string description;
-    vector <Item> itemsInCharacter;
+    //Inventory<Trap> trapInventory;
 public:
-    Character(string description);
-    void addItem(Item);
-    string shortDescription();
-	string longDescription();
-
+    //Character();
+    Character(string description = "player");
+    void addTrap(Trap &trap);
+    Trap getInventorySlot(int pos);
 };
 
 #endif /*CHARACTER_H_*/
