@@ -3,19 +3,33 @@
 //<LUKE><TBD>Anywhere TBD means To Be Deleted
 
 //<LUKE> Implemented intializer list for trap inventory
-//OLD:  Character::Character(string description) : trapInventory(10) {
-Character::Character(string description){
+Character::Character(string description) : trapInventory(10) {
 	this->description = description;
 }
+
+void Character::addTrap(Trap* trap){
+    trapInventory.add(*trap);
+}
+
+Trap* Character::getTrap(string name){
+    return trapInventory.get(name);
+}
+
+string Character::printTraps(){
+    string all = "";
+    for(int i = 0; i < trapInventory.getLength(); i++){
+        all = all + "   " + trapInventory[i].getName() + "///";
+    }
+    return all;
+}
+
 
 ////CREATE A TEMPLATE CLASS FOR INVENTORY???
 //Trap Character::getInventorySlot(int pos){
 //    return trapInventory.at(pos);
 //}
 
-//void Character::addTrap(Trap &trap){
-//    trapInventory.add(trap);
-//}
+
 
 /*
 string Character::longDescription()

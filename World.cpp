@@ -7,7 +7,7 @@
 using namespace std;
 #include "World.h"
 
-World::World() : player("player") {
+World::World() : player("player"), shop("shop") {
     createRooms();
     createItems();
 }
@@ -76,6 +76,7 @@ Room* World::getCurrentRoom()
     return currentRoom;
 }
 
+//<LUKE> All the stuff going on with concatenating currentRoomLabel is to be able to find the room named exactly the same in ui file
 void World::setCurrentRoom(Room* r)
 {
     currentRoom = r;
@@ -87,7 +88,8 @@ void World::setCurrentRoom(Room* r)
     }
 }
 
-string World::getCurrentRoomLabel(){
+string World::getCurrentRoomLabel()
+{
     return currentRoomLabel;
 }
 
@@ -95,37 +97,22 @@ string World::getCurrentRoomLabel(){
 Room** World::getGenRooms()
 {
     return genRooms;
-    }
-
-//Trap(string name, string description, int timeMod, string dmgType, int baseDmg, int maxDmg);
-void World::createItems(){
-    //<LUKE> Completely randomly assigned vals
-    Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
-                           5, "slashing", 20, 30);
-    Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
-                                   5, "slashing", 4, 5);
-    Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
-                              5, "piercing", 20, 30);
-
-//    player.addTrap(*pendulum);
-//    player.addTrap(*stoneSoldiers);
-//    player.addTrap(*crossbow);
-
 }
 
-/**
- *  Main play routine.  Loops until end of play.
- */
-void World::play() {
-    printWelcome();
+void World::createItems(){
+    //<LUKE> Completely randomly assigned vals by ME
 
-/*
-    bool finished = false;
-    while (!finished) {
-    }
-    cout << endl;
-    cout << "end" << endl;
-    */
+    Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
+                           5, "slashing", 20, 30);
+    shop.addTrap(pendulum);
+
+    Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
+                                   5, "slashing", 4, 5);
+    shop.addTrap(stoneSoldiers);
+
+    Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
+                              5, "piercing", 20, 30);
+    shop.addTrap(crossbow);
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
@@ -137,7 +124,7 @@ void World::printWelcome() {
     cout << "You begin in " << currentRoom->getDescription() << endl;
 }
 
-
+//Moves player in chosen direction if pathway exists
 bool World::go(string direction) {
     Room* nextRoom = currentRoom->nextRoom(direction);
     if (nextRoom == NULL)

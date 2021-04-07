@@ -1,0 +1,132 @@
+//<LUKE>.tci stand for template class implementation, something I copied/made up since there is not standard file extension
+#ifndef INVENTORYARRAYTEMP_TCI
+#define INVENTORYARRAYTEMP_TCI
+
+#include <iostream>
+#include <exception>
+#include <string>
+
+#include "Trap.h"
+//#include "Potion.h"
+#include "Blueprint.h"
+
+class InvalidLength : public exception{
+    public:
+        const char * what() const throw()
+        {
+            return "Attempted to create array with 0 elements or less\n";
+        }
+};
+
+template <class T>
+class InventoryTemplate
+{
+private:
+    int length;
+    T* inventory;
+
+public:
+    InventoryTemplate(){
+        InventoryTemplate(5);
+    }
+
+    //<LUKE> Try block makes sure type is valid. Length is then check to ensure is valid and custom exception is thrown if isn't.
+    //Then inv array is initialised and filled with 0's
+    InventoryTemplate(int length)
+    {
+        if(length > 0){
+            inventory = new T[length];
+            this->length = length;
+//            for(int i = 0; i < length; i++){
+//                inventory[i] = 0;
+//            }
+        }
+    }
+
+//        try {
+//          if(typeid(T) == typeid(Trap) && typeid(T) == typeid(Blueprint)){
+//              if(this->length > 0){
+//                  inventory = new T[length];
+//                  this->length = length;
+////                  for(int i = 0; i < length; i++){
+////                      inventory[i] = 0;
+////                  }
+//              }else{
+//                  InvalidLength x;
+//                  throw x;
+//              }
+//          }else{
+//              throw bad_typeid();
+//          }
+//        }
+//        catch(const std::bad_typeid& e) {
+//            cout << e.what() << "\n";
+//        }
+//        catch(const InvalidLength& e) {
+//            cout << e.what() << "\n";
+//        }
+//    }
+
+    ~InventoryTemplate()
+    {
+        delete[] inventory;
+    }
+
+    //<LUKE> Array + int = Enlargened Array
+    T* &operator+(const int newArrSize){
+        T* temp = new T[newArrSize];
+        std::copy(inventory, inventory + length, temp);
+        delete [] inventory;
+        length = newArrSize;
+        inventory = temp;
+        return inventory;
+    }
+
+    //<LUKE> I took this from lec slides since is extremely useful bit of code for a custom array in my opinion
+    Trap &operator[](int subscript)
+    {
+        if(subscript < 0 || subscript >= length)
+            throw out_of_range("Subscript is out of range");
+
+        return inventory[subscript];
+    }
+
+    //<LUKE> Have chosen not to delete empty space in array, as in this code I think the inventory will flucuate enough to justify that
+    void remove(T &item){
+        for(int i = 0; i < length; i++){
+            if(inventory[i] == item){
+                for(int j = i; j < length; j++){
+                    inventory[j] = inventory[j + 1];
+                }
+                inventory[length-1] = 0;
+            }
+        }
+    }
+
+
+    //<LUKE> Add item to array if space exists, if not, exapnd array and add it
+    void add(const T &item){
+        for(int i = 0; i < length; i++){
+            if(inventory[i].getName() == ""){
+                inventory[i] = item;
+                return;
+            }
+        }
+        length += 1;
+        inventory + length;
+        inventory[length - 1] = item;
+    }
+
+    T* get(std::string name){
+        for(int i = 0; i < length; i++){
+            if(inventory[i].getName() == name) return &inventory[i];
+        }
+        return nullptr;
+    }
+
+    int getLength() const{
+        return length;
+    }
+};
+
+#endif // INVENTORYARRAYTEMP_TCI

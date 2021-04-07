@@ -1,8 +1,9 @@
 #include "Trap.h"
 #include <string>
 
-Trap::Trap(string name, string description, int timeMod, string dmgType,int baseDmg, int maxDmg){
-    Item(name, description, timeMod);
+Trap::Trap(const string &name, const string &description, int timeMod, const string &dmgType,int baseDmg, int maxDmg) :
+    Item(name, description, timeMod)
+{
     this->dmgType = dmgType;
     this->baseDmg = baseDmg;
     this->maxDmg = maxDmg;
@@ -18,7 +19,9 @@ void Trap::setDmgType(string dmgtype){
 }
 
 void Trap::setDealtDmg(){
-    dealtDmg = rand() % (maxDmg-baseDmg) + baseDmg;
+    dealtDmg = 50;
+    //<LUKE> Temp comment out as was segmnet faulting here
+    //dealtDmg = rand() % (maxDmg-baseDmg) + baseDmg;
 } //calculates damage dealt between baseDmg - maxDmg
 
 void Trap::setDealtDmg(double factor){

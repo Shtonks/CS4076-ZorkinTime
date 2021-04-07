@@ -17,6 +17,7 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
         exits["West"] = west;
 }
 
+
 string Room::getDescription() {
     return description + "(Bonus damage type is " + bonusDmgType + ")";
 }
@@ -85,13 +86,6 @@ string Room::getIcon(){
     return icon;
 }
 
-void Room::setIsPlayerInRoom(bool n){
-    isPlayerInRoom = n;
-}
-
-bool Room::getIsPlayerInRoom(){
-    return isPlayerInRoom;
-}
 
 /*
 <LUKE> maybe maybe maybe

@@ -21,7 +21,6 @@ private:
     string bonusDmgType = "nothing";
     Trap* trapInRoom = nullptr;
     string icon;
-    bool isPlayerInRoom = false;
 
 public:
     Room(string description);
@@ -35,8 +34,7 @@ public:
     inline string getBonusDmgType();
     void placeTrap(Trap& t);
     string getIcon();
-    void setIsPlayerInRoom(bool n);
-    bool getIsPlayerInRoom();
+
 };
 
 #endif

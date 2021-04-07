@@ -2,7 +2,7 @@
 #define CHARACTER_H_
 //#include "World.h"
 #include "Trap.h"
-#include "InventoryTemplate.tci"
+#include "InventoryArrayTemp.tci"
 
 #include <string>
 using namespace std;
@@ -11,12 +11,14 @@ using namespace std;
 class Character {
 private:
     string description;
-    //Inventory<Trap> trapInventory;
+    InventoryTemplate<Trap> trapInventory;
 public:
     //Character();
     Character(string description = "player");
-    void addTrap(Trap &trap);
-    Trap getInventorySlot(int pos);
+    void addTrap(Trap* trap);
+    Trap* getTrap(string name);
+    //Trap getInventorySlot(int pos);
+    string printTraps();
 };
 
 #endif /*CHARACTER_H_*/

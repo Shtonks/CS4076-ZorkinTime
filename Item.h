@@ -6,7 +6,8 @@
 using namespace std;
 
 class Item {
-	private:
+    //<LUKE> making them protected so that derived classes can access these things directly
+    protected:
 		string description;
 		string name;
 		int timeMod;
@@ -16,7 +17,8 @@ class Item {
     public:
         Item();
         Item(string name, string description, int timeMod);
-		string getName();
+        virtual ~Item() = default;
+        string getName() const;
         void setName(string name);
 		string getDescription();
         void setDescription(string desc);

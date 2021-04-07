@@ -9,7 +9,7 @@ Item::Item(string n, string d, int t) {
     amount = 1;
 }
 
-string Item::getName(){
+string Item::getName() const{
 	return name;
 }
 
