@@ -1,7 +1,7 @@
 #include "Trap.h"
 #include <string>
 
-Trap::Trap(const string &name, const string &description, int timeMod, const string &dmgType,int baseDmg, int maxDmg) :
+Trap::Trap(const string &name, const string &description, int timeMod, int dmgType,int baseDmg, int maxDmg) :
     Item(name, description, timeMod)
 {
     this->dmgType = dmgType;
@@ -11,11 +11,21 @@ Trap::Trap(const string &name, const string &description, int timeMod, const str
 }
 
 string Trap::getDmgType(){
-    return dmgType;
+    string out;
+    switch(dmgType){
+    case SLASHING: out = "slashing"; break;
+    case PIERCING: out = "piercing"; break;
+    case BLUDGEONING: out ="bludgeoning"; break;
+    case FIRE: out = "fire"; break;
+    case COLD: out = "cold"; break;
+    case POISON: out = "poison"; break;
+    case NOTHING: out = "nothing special"; break;
+    }
+    return out;
 }
 
-void Trap::setDmgType(string dmgtype){
-    this->dmgType = dmgtype;
+void Trap::setDmgType(int dmgType){
+    this->dmgType = dmgType;
 }
 
 void Trap::setDealtDmg(){
@@ -54,6 +64,6 @@ string Trap::toString(){
     return "Name: " + getName() +
            "\nAmount: " + to_string(getAmount()) +
            "\nTime Taken: " + to_string(getTimeMod()) +
-           "\n"+ to_string(baseDmg)+ "-" + to_string(maxDmg) + " " + dmgType + "damage" +
+           "\n"+ to_string(baseDmg)+ "-" + to_string(maxDmg) + " " + getDmgType() + "damage" +
            "\nDescription: " + getDescription();
 }

@@ -3,7 +3,6 @@
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
 #include <string>
-
 using namespace std;
 #include "World.h"
 
@@ -12,37 +11,46 @@ World::World() : player("player"), shop("shop") {
     createItems();
 }
 
+typedef struct World::roomAttbs {
+    string bonus;
+    unsigned int dmgBonusNum : 3; //<ISHA> range 0-7
+    roomAttbs(string b, int d){
+        bonus = b; dmgBonusNum = d;
+    }
+ } roomAttbs;
+
 void World::createRooms()  {
     const int numOfRooms = 16;
 
-    string dmgBonusRooms[numOfRooms] = {"Room of Nothing Extraordinary",
-                              "Room of Nothing Extraordinary",
-                              "Room of Nothing Extraordinary",
-                              "Room of Nothing Extraordinary",
-                              "Room of Nothing Extraordinary",
-                              "Room of Nothing Extraordinary",
-                              "Room of the Sword",
-                              "Room of the Sword",
-                              "Room of the Spear",
-                              "Room of the Spear",
-                              "Room of the Mace",
-                              "Room of Flame",
-                              "Room of Flame",
-                              "Room of Frost",
-                              "Room of Frost",
-                              "Room of the Snake"};
+    vector<roomAttbs> roomList = {
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of Nothing Extraordinary", NOTHING),
+        roomAttbs("Room of the Sword", SLASHING),
+        roomAttbs("Room of the Sword", SLASHING),
+        roomAttbs("Room of the Spear", PIERCING),
+        roomAttbs("Room of the Spear", PIERCING),
+        roomAttbs("Room of the Mace", BLUDGEONING),
+        roomAttbs("Room of Flame", FIRE),
+        roomAttbs("Room of Flame", FIRE),
+        roomAttbs("Room of Frost", COLD),
+        roomAttbs("Room of Frost", COLD),
+        roomAttbs("Room of the Snake", POISON)};
 
     // obtain a time-based seed
     //<LUKE> Means complete guarenteed randomness when assigning rooms
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-
-    shuffle (dmgBonusRooms, dmgBonusRooms + numOfRooms, default_random_engine(seed));
+    vector<roomAttbs>::iterator ritb = roomList.begin();
+    vector<roomAttbs>::iterator rite = roomList.end();
+    shuffle (ritb, rite, default_random_engine(seed));
 
     for(int i = 0; i < numOfRooms; i++){
-        genRooms[i] = new Room(dmgBonusRooms[i]);
+        genRooms[i] = new Room(roomList.at(i).bonus, roomList.at(i).dmgBonusNum);
         //cout << genRooms[i]->getDescription() << endl;
     }
-
 
     //<LUKE> rooms set out so ALL join together at start
     //(N, E, S, W)
@@ -103,15 +111,15 @@ void World::createItems(){
     //<LUKE> Completely randomly assigned vals by ME
 
     Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
-                           5, "slashing", 20, 30);
+                           5, SLASHING, 20, 30);
     shop.addTrap(pendulum);
 
     Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
-                                   5, "slashing", 4, 5);
+                                   5, SLASHING, 4, 5);
     shop.addTrap(stoneSoldiers);
 
     Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
-                              5, "piercing", 20, 30);
+                              5, PIERCING, 20, 30);
     shop.addTrap(crossbow);
 }
 
