@@ -22,6 +22,7 @@ private:
     //void displayItems();
 
 public:
+    struct roomAttbs;
     World();
     void printWelcome();
     bool go(string direction);
