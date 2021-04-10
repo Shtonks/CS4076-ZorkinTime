@@ -3,66 +3,46 @@
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
 #include <string>
-#include <bitset>
+
 using namespace std;
 #include "World.h"
-
-//<ISHA> namspaces only have a global scope, any variables declared inside are global as well.
-namespace globals{
-    string bonus = "same name as another string in file but can be accessed with globals::bonus";
-}
-
-//<ISHA> eeeeeeeeeeeeeeeeeeeeeeh
-//template <class Item>
-//Item ItemLonger(Item *i1, Item *i2){
-//    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
-//}
 
 World::World() : player("player"), shop("shop") {
     createRooms();
     createItems();
 }
 
-typedef struct World::roomAttbs {
-    string bonus;
-    unsigned int dmgBonusNum : 3; //<ISHA> int with 3 bits, range 0-7
-    roomAttbs(string b, int d){
-        bonus = b; dmgBonusNum = d;
-    }
- } roomAttbs;
-
 void World::createRooms()  {
     const int numOfRooms = 16;
 
-    vector<roomAttbs> roomList = {
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of Nothing Extraordinary", NOTHING),
-        roomAttbs("Room of the Sword", SLASHING),
-        roomAttbs("Room of the Sword", SLASHING),
-        roomAttbs("Room of the Spear", PIERCING),
-        roomAttbs("Room of the Spear", PIERCING),
-        roomAttbs("Room of the Mace", BLUDGEONING),
-        roomAttbs("Room of Flame", FIRE),
-        roomAttbs("Room of Flame", FIRE),
-        roomAttbs("Room of Frost", COLD),
-        roomAttbs("Room of Frost", COLD),
-        roomAttbs("Room of the Snake", POISON)};
+    string dmgBonusRooms[numOfRooms] = {"Room of Nothing Extraordinary",
+                                      "Room of Nothing Extraordinary",
+                                      "Room of Nothing Extraordinary",
+                                      "Room of Nothing Extraordinary",
+                                      "Room of Nothing Extraordinary",
+                                      "Room of Nothing Extraordinary",
+                                      "Room of the Sword",
+                                      "Room of the Sword",
+                                      "Room of the Spear",
+                                      "Room of the Spear",
+                                      "Room of the Mace",
+                                      "Room of Flame",
+                                      "Room of Flame",
+                                      "Room of Frost",
+                                      "Room of Frost",
+                                      "Room of the Snake"};
 
     // obtain a time-based seed
     //<LUKE> Means complete guarenteed randomness when assigning rooms
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    vector<roomAttbs>::iterator ritb = roomList.begin();
-    vector<roomAttbs>::iterator rite = roomList.end();
-    shuffle (ritb, rite, default_random_engine(seed));
+
+    shuffle (dmgBonusRooms, dmgBonusRooms + numOfRooms, default_random_engine(seed));
 
     for(int i = 0; i < numOfRooms; i++){
-        genRooms[i] = new Room(roomList.at(i).bonus, roomList.at(i).dmgBonusNum);
+        genRooms[i] = new Room(dmgBonusRooms[i]);
         //cout << genRooms[i]->getDescription() << endl;
     }
+
 
     //<LUKE> rooms set out so ALL join together at start
     //(N, E, S, W)
@@ -87,8 +67,25 @@ void World::createRooms()  {
     genRooms[15]->setExits(genRooms[11], NULL, NULL, genRooms[14]);
 
 
-    //<LUKE> Random room I've picked for now. Could be randomised
-    setCurrentRoom(genRooms[10]);
+    //<LUKE> Randomly start the player in a room
+    srand(seed);
+    int randStartRoom = rand() % numOfRooms;
+    setCurrentRoom(genRooms[randStartRoom]);
+
+    int randShopRoom = rand() % numOfRooms;
+    shopRoom = genRooms[randShopRoom];
+
+}
+
+string World::getShopRoomLabel(){
+    string shopRoomLabel = "";
+    for(int i = 0; i < 16; i++){
+        if(shopRoom == genRooms[i]){
+            if(i+1 < 10) shopRoomLabel = "room0" + std::to_string(i+1);
+            else shopRoomLabel = "room" + std::to_string(i+1);
+        }
+    }
+    return shopRoomLabel;
 }
 
 Room* World::getCurrentRoom()
@@ -123,21 +120,21 @@ void World::createItems(){
     //<LUKE> Completely randomly assigned vals by ME
 
     Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
-                           5, SLASHING, 20, 30);
+                           5, "slashing", 20, 30);
     shop.addTrap(pendulum);
 
     Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
-                                   5, SLASHING, 4, 5);
+                                   5, "slashing", 4, 5);
     shop.addTrap(stoneSoldiers);
 
     Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
-                              5, PIERCING, 20, 30);
+                              5, "piercing", 20, 30);
     shop.addTrap(crossbow);
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
 void World::printWelcome() {
-    cout << "You have " << numMoves << " turns before death comes searching for you "
+    cout << "You have " << numMoves << " before death comes searching for you "
     " and you're crystal"<< endl;
     cout << "Make good use of you're time. Prepare"<< endl;
     cout << endl;

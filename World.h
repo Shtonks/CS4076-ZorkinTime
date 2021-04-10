@@ -6,16 +6,17 @@
 #include <iostream>
 #include <string>
 using namespace std;
-namespace globals{};
 
 class World {
     friend class MainWindow;
+    friend class ShopInterface;
 private:
     Character player;
     Character shop;
     Room *genRooms[16];
     int numMoves = 100;
-    Room *currentRoom;
+    Room* currentRoom;
+    Room* shopRoom;
     void createRooms();
     void createItems();
     string currentRoomLabel;
@@ -23,8 +24,6 @@ private:
     //void displayItems();
 
 public:
-//    template<class Item> Item ItemLonger(Item *i1, Item *i2);
-    struct roomAttbs;
     World();
     void printWelcome();
     bool go(string direction);
@@ -32,4 +31,5 @@ public:
     void setCurrentRoom(Room* r);
     string getCurrentRoomLabel();
     Room** getGenRooms();
+    string getShopRoomLabel();
 };

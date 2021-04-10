@@ -1,9 +1,9 @@
 #include "Room.h"
 
 
-Room::Room(string description, int dmgType) {
-    this->description = description;
-    findBonusDmgType(dmgType);
+Room::Room(string description) {
+	this->description = description;
+    findBonusDmgType(description);
 }
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
@@ -23,15 +23,36 @@ string Room::getDescription() {
 }
 
 //<LUKE> Tried to use a switch statement here, couldn't get working
-//<ISHA> Got it :)
-void Room::findBonusDmgType(int type){
-    switch (type){
-        case SLASHING: bonusDmgType = "slashing"; icon = "overlay-slash.png"; break;
-        case PIERCING: bonusDmgType = "piercing"; icon = "overlay-pierce.png"; break;
-        case BLUDGEONING: bonusDmgType = "bludgeoning"; icon = "overlay-bludgeon.png"; break;
-        case FIRE: bonusDmgType = "fire"; icon = "overlay-fire.png"; break;
-        case COLD: bonusDmgType = "cold"; icon = "overlay-ice.png"; break;
-        case POISON: bonusDmgType = "poison"; icon = "overlay-poison.png"; break;
+void Room::findBonusDmgType(string type){
+    if(type.find("Sword") != string::npos){
+        bonusDmgType = "slashing";
+        icon = "overlay-slash.png";
+        return;
+    }
+    else if(type.find("Spear") != string::npos){
+        bonusDmgType = "piercing";
+        icon = "overlay-pierce.png";
+        return;
+    }
+    else if(type.find("Mace") != string::npos){
+        bonusDmgType = "bludgeoning";
+        icon = "overlay-bludgeon.png";
+        return;
+    }
+    else if(type.find("Flame") != string::npos){
+        bonusDmgType = "fire";
+        icon = "overlay-fire.png";
+        return;
+    }
+    else if(type.find("Frost") != string::npos){
+        bonusDmgType = "cold";
+        icon = "overlay-ice.png";
+        return;
+    }
+    else if(type.find("Snake") != string::npos){
+        bonusDmgType = "poison";
+        icon = "overlay-poison.png";
+        return;
     }
 }
 
@@ -59,6 +80,11 @@ void Room::placeTrap(Trap& t){
     }
     trapInRoom = &t;
 }
+
+Trap* Room::getTrapInRoom(){
+    return trapInRoom;
+}
+
 
 string Room::getIcon(){
     return icon;

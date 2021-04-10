@@ -17,13 +17,13 @@ private:
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
-    void findBonusDmgType(int type);
+    void findBonusDmgType(string type);
     string bonusDmgType = "nothing";
     Trap* trapInRoom = nullptr;
     string icon;
 
 public:
-    Room(string description, int dmgType);
+    Room(string description);
 	void setExits(Room *north, Room *east, Room *south, Room *west);
     string getDescription();
 	Room* nextRoom(string direction);
@@ -34,6 +34,7 @@ public:
     inline string getBonusDmgType();
     void placeTrap(Trap& t);
     string getIcon();
+    Trap* getTrapInRoom();
 
 };
 

@@ -10,6 +10,8 @@
 //#include "Potion.h"
 #include "Blueprint.h"
 
+using namespace std;
+
 class InvalidLength : public exception{
     public:
         const char * what() const throw()
@@ -72,18 +74,9 @@ public:
         delete[] inventory;
     }
 
-    //<LUKE> Array + int = Enlargened Array
-    T* &operator+(const int newArrSize){
-        T* temp = new T[newArrSize];
-        std::copy(inventory, inventory + length, temp);
-        delete [] inventory;
-        length = newArrSize;
-        inventory = temp;
-        return inventory;
-    }
 
     //<LUKE> I took this from lec slides since is extremely useful bit of code for a custom array in my opinion
-    Trap &operator[](int subscript)
+    T &operator[](int subscript)
     {
         if(subscript < 0 || subscript >= length)
             throw out_of_range("Subscript is out of range");
@@ -92,7 +85,7 @@ public:
     }
 
     //<LUKE> Have chosen not to delete empty space in array, as in this code I think the inventory will flucuate enough to justify that
-    void remove(T &item){
+    void remove(const T &item){
         for(int i = 0; i < length; i++){
             if(inventory[i] == item){
                 for(int j = i; j < length; j++){
@@ -112,12 +105,10 @@ public:
                 return;
             }
         }
-        length += 1;
-        inventory + length;
-        inventory[length - 1] = item;
+        throw out_of_range("No more room in inventory");
     }
 
-    T* get(std::string name){
+    T* get(string name){
         for(int i = 0; i < length; i++){
             if(inventory[i].getName() == name) return &inventory[i];
         }
