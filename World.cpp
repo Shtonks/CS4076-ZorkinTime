@@ -13,8 +13,8 @@ namespace globals{
 }
 
 //<ISHA> eeeeeeeeeeeeeeeeeeeeeeh
-//template <typename T>
-//T ItemLonger(T *i1, T *i2){
+//template <class Item>
+//Item ItemLonger(Item *i1, Item *i2){
 //    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
 //}
 
