@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
+namespace globals{};
 
 class World {
     friend class MainWindow;
@@ -22,6 +23,7 @@ private:
     //void displayItems();
 
 public:
+//    template<class Item> Item ItemLonger(Item *i1, Item *i2);
     struct roomAttbs;
     World();
     void printWelcome();

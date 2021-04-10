@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include <string>
+#include <time.h>
 
 #define SLASHING 0
 #define PIERCING 1

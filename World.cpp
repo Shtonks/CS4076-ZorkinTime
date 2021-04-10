@@ -3,8 +3,20 @@
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
 #include <string>
+#include <bitset>
 using namespace std;
 #include "World.h"
+
+//<ISHA> namspaces only have a global scope, any variables declared inside are global as well.
+namespace globals{
+    string bonus = "same name as another string in file but can be accessed with globals::bonus";
+}
+
+//<ISHA> eeeeeeeeeeeeeeeeeeeeeeh
+//template <typename T>
+//T ItemLonger(T *i1, T *i2){
+//    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
+//}
 
 World::World() : player("player"), shop("shop") {
     createRooms();
@@ -13,7 +25,7 @@ World::World() : player("player"), shop("shop") {
 
 typedef struct World::roomAttbs {
     string bonus;
-    unsigned int dmgBonusNum : 3; //<ISHA> range 0-7
+    unsigned int dmgBonusNum : 3; //<ISHA> int with 3 bits, range 0-7
     roomAttbs(string b, int d){
         bonus = b; dmgBonusNum = d;
     }
@@ -125,7 +137,7 @@ void World::createItems(){
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
 void World::printWelcome() {
-    cout << "You have " << numMoves << " before death comes searching for you "
+    cout << "You have " << numMoves << " turns before death comes searching for you "
     " and you're crystal"<< endl;
     cout << "Make good use of you're time. Prepare"<< endl;
     cout << endl;
