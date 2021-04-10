@@ -87,8 +87,25 @@ void World::createRooms()  {
     genRooms[15]->setExits(genRooms[11], NULL, NULL, genRooms[14]);
 
 
-    //<LUKE> Random room I've picked for now. Could be randomised
-    setCurrentRoom(genRooms[10]);
+    //<LUKE> Randomly start the player in a room
+    srand(seed);
+    int randStartRoom = rand() % numOfRooms;
+    setCurrentRoom(genRooms[randStartRoom]);
+
+    int randShopRoom = rand() % numOfRooms;
+    shopRoom = genRooms[randShopRoom];
+
+}
+
+string World::getShopRoomLabel(){
+    string shopRoomLabel = "";
+    for(int i = 0; i < 16; i++){
+        if(shopRoom == genRooms[i]){
+            if(i+1 < 10) shopRoomLabel = "room0" + std::to_string(i+1);
+            else shopRoomLabel = "room" + std::to_string(i+1);
+        }
+    }
+    return shopRoomLabel;
 }
 
 Room* World::getCurrentRoom()

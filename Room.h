@@ -34,6 +34,7 @@ public:
     inline string getBonusDmgType();
     void placeTrap(Trap& t);
     string getIcon();
+    Trap* getTrapInRoom();
 
 };
 

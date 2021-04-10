@@ -17,6 +17,8 @@ public:
     Character(string description = "player");
     void addTrap(Trap* trap);
     Trap* getTrap(string name);
+    Trap* getTrap(int n);
+    int getTrapArrLength();
     //Trap getInventorySlot(int pos);
     string printTraps();
 };

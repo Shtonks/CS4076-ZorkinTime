@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "World.h"
 #include "Character.h"
+#include "shopInterface.h"
 #include <QTreeView>
 #include <QTreeWidgetItem>
 #include <QPixmap>
@@ -9,19 +10,13 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), world(new World())
 {
     ui->setupUi(this);
-/*
-    QPixmap pix(":/Images/Direction/ZorkPics/map.png");
-    int w = ui->map->width();
-    int h = ui->map->height();
-    ui->map->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
-    */
 
-    ui->textDisplay->appendPlainText("TestyTest");
+    //<LUKE> sets the initial column sizes
     for(int i = 0; i < 5; i++){
         ui->trapTree->resizeColumnToContents(i);        
     }
 
-    //<LUKE> this assigns all the bonusDmg room colours appropriately
+    //<LUKE> this assigns all the bonusDmg room colours
     for(int i = 0; i < 16; i++){
         string icon = ":/Images/Direction/ZorkPics/" + world->getGenRooms()[i]->getIcon();
         string roomSearchName;
@@ -31,6 +26,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         QPixmap pix(QString::fromStdString(icon));
         roomName->setPixmap(pix);
     }
+    QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getShopRoomLabel()), Qt::FindDirectChildrenOnly);
+    ui->shop->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
+    QPixmap pix(":/Images/Direction/ZorkPics/pigg.jpg");
+    ui->shop->setPixmap(pix);
+
+
+
 
     movePlayerHighlight();
     //<LUKE> Not working, easy fix. I just have more pressing things to do rn
@@ -59,8 +61,6 @@ void MainWindow::on_Up_clicked()
         ui->textDisplay->appendPlainText(QString::fromStdString(world->getCurrentRoom()->getDescription()));
         movePlayerHighlight();
     }
-
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 }
 
 
@@ -70,13 +70,6 @@ void MainWindow::on_Down_clicked()
         ui->textDisplay->appendPlainText(QString::fromStdString(world->getCurrentRoom()->getDescription()));
         movePlayerHighlight();
     }
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
-
-    world->player.addTrap(world->shop.getTrap("Pendulum of Regret"));
-
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
-
-
 }
 
 
@@ -86,11 +79,7 @@ void MainWindow::on_Right_clicked()
         ui->textDisplay->appendPlainText(QString::fromStdString(world->getCurrentRoom()->getDescription()));
         movePlayerHighlight();
     }
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 
-    world->player.addTrap(world->shop.getTrap("Crossbow Volley"));
-
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 }
 
 void MainWindow::on_Left_clicked()
@@ -101,25 +90,46 @@ void MainWindow::on_Left_clicked()
     }
 }
 
-void MainWindow::on_swordBlueprint_clicked()
+//<LUKE> Opens the shop window
+void MainWindow::on_talk_clicked()
 {
-    //addItem();
+    if(world->getShopRoomLabel() == world->getCurrentRoomLabel()){
+        ShopInterface shopUI(this);
+        shopUI.move(730, 0);
+        shopUI.setModal(true);
+        shopUI.exec();
+    }
 }
 
-//<LUKE> Can make this a template function
+void MainWindow::on_swordBlueprint_clicked()
+{
+    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 
-void MainWindow::addItem(Item *thing){
+    addPlayerItem(world->shop.getTrap("Crossbow Volley"));
+
+    ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
+}
+
+void MainWindow::addPlayerItem(Item *thing){
+    try {
+        if(Trap* trap = dynamic_cast<Trap*>(thing)) world->player.addTrap(trap);
+    }  catch (out_of_range &oop) {
+        ui->textDisplay->appendPlainText(QString::fromStdString(oop.what()));
+    }
+    addItem(thing, ui->trapTree);
+    //else if(Blueprint* blueprint = dynamic_cast<Blueprint*>(thing)) world->player.addBlueprint(trap);
+}
+
+void MainWindow::addItem(Item *thing, QTreeWidget* theTree){
     //<LUKE>Dynamic cast either creates a downcast version of Item or else returns null
     //Can do just if cuz if null, null is converted to false automatically
-
     if(Trap* trap = dynamic_cast<Trap*>(thing)){
         QTreeWidgetItem *item ;
-        item = new QTreeWidgetItem(ui->trapTree);
-        item->setIcon(0,QIcon(":/Images/Direction/ZorkPics/pigg.jpg"));                 //icon
-        item->setText(1, QString::fromStdString(trap->getName()));                     //name
-        item->setText(2, QString::fromStdString(to_string(trap->getTimeMod())));       //build time
-        item->setText(3, QString::fromStdString(trap->getName()));                     //dmg NOT DONE
-        item->setText(4, QString::fromStdString(to_string(trap->getAmount())));        //quantity
+        item = new QTreeWidgetItem(theTree);
+        item->setText(0, QString::fromStdString(trap->getName()));                     //Trap Name
+        item->setText(1, QString::fromStdString(trap->getDmgType()));                  //Dmg Type
+        item->setText(2, QString::fromStdString(to_string(trap->getMaxDmg())));                     //Max Dmg
+        item->setText(3, QString::fromStdString(to_string(trap->getTimeMod())));       //Build Time
     }
     else if(Blueprint* blueprint = dynamic_cast<Blueprint*>(thing)){
 
@@ -129,15 +139,46 @@ void MainWindow::addItem(Item *thing){
 
 
 
-void MainWindow::on_placeTrap_clicked()
-{/*
-    //if something is selecetd
-    if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
-        world->currentRoom->placeTrap(world->player.getInventorySlot(1));
-        //world->getCurrentRoom()->placeTrap(world->player.getInventorySlot(ui->trapTree->currentIndex().row));
-        cout<<"trap placed";
+void MainWindow::on_place_clicked()
+{
+    if(world->getCurrentRoom()->getTrapInRoom() == nullptr){
+        if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
+            QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
+            QLabel *trapName;
+            for(int i = 0; i < 10; i++){
+                string trapSearchName = "trap" + std::to_string(i+1);
+                trapName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(trapSearchName), Qt::FindDirectChildrenOnly);
+                if(trapName->width() != roomName->width()){
+                    trapName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
+                    string trapStringName = ":/Images/Direction/ZorkPics/" + selectedItem->text(0).toStdString() + ".png";
+                    QPixmap pix(QString::fromStdString(":/Images/Direction/ZorkPics/spearRoom.png"));
+                    trapName->setPixmap(pix);
+                    ui->textDisplay->appendPlainText("Trap placed");
+                }
+            }
+        } else if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
+                QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
+                QLabel *blueprintName;
+                for(int i = 0; i < 6; i++){
+                    string blueprintSearchName = "blueprint" + std::to_string(i+1);
+                    blueprintName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(blueprintSearchName), Qt::FindDirectChildrenOnly);
+                    if(blueprintName->width() != roomName->width()){
+                        blueprintName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
+                        QPixmap pix(QString::fromStdString(":/Images/Direction/ZorkPics/SwordRoom.png"));
+                        blueprintName->setPixmap(pix);
+                        ui->textDisplay->appendPlainText("Trap placed");
+                    }
+                }
+         }
     }
-    */
 }
 
+void MainWindow::on_blueprintTree_itemClicked(QTreeWidgetItem *item)
+{
+    selectedItem = item;
+}
 
+void MainWindow::on_trapTree_itemClicked(QTreeWidgetItem *item)
+{
+    selectedItem = item;
+}

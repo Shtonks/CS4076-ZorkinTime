@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Item.h"
+#include "Riskfactor.h"
 #include <string>
 #include <time.h>
 
@@ -12,7 +13,7 @@
 #define POISON 5
 #define NOTHING 6
 
-class Trap : public Item {
+class Trap : public Item, public RiskFactor {
     private:
         int dmgType;
         int maxDmg;
@@ -29,8 +30,6 @@ class Trap : public Item {
         void setDealtDmg(double factor); //<ISHA> Multiplies Dealt damage by a factor depending on room
         int getDealtDmg();
         void setVulnerable(bool vulnerable);
-        bool isVulnerable();
         void setResistant(bool resistant);
-        bool isResistant();
         string toString();
 };

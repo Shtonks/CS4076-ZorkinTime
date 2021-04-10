@@ -220,12 +220,17 @@
       </attribute>
       <column>
        <property name="text">
-        <string/>
+        <string>Trap</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Trap</string>
+        <string>Damage Type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Max Damage</string>
        </property>
       </column>
       <column>
@@ -233,49 +238,6 @@
         <string>Build time</string>
        </property>
       </column>
-      <column>
-       <property name="text">
-        <string>Damage</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Quantity</string>
-       </property>
-      </column>
-      <item>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string>Spikes</string>
-       </property>
-       <property name="text">
-        <string> 5</string>
-       </property>
-       <property name="text">
-        <string>100</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>seods</string>
-       </property>
-       <property name="text">
-        <string>dsefioad</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>pop</string>
-       </property>
-       <property name="text">
-        <string>oop</string>
-       </property>
-      </item>
      </widget>
      <widget class="QTreeWidget" name="itemDescTree">
       <property name="geometry">
@@ -296,70 +258,6 @@
         <string>Trap Total</string>
        </property>
       </column>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="potions">
-     <attribute name="title">
-      <string>Potions</string>
-     </attribute>
-     <widget class="QTreeWidget" name="potionTree">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>655</width>
-        <height>280</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Bahnschrift</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="autoScroll">
-       <bool>false</bool>
-      </property>
-      <attribute name="headerDefaultSectionSize">
-       <number>125</number>
-      </attribute>
-      <attribute name="headerShowSortIndicator" stdset="0">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string/>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Potion</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Effect</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>IDK more shit??</string>
-       </property>
-      </column>
-      <item>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string>Spikes</string>
-       </property>
-       <property name="text">
-        <string> 5</string>
-       </property>
-       <property name="text">
-        <string>100</string>
-       </property>
-      </item>
      </widget>
     </widget>
     <widget class="QWidget" name="blueprints">
@@ -427,7 +325,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="placeTrap">
+   <widget class="QPushButton" name="place">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -466,11 +364,11 @@
      <string>Upgrade Trap</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_15">
+   <widget class="QPushButton" name="talk">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>750</y>
+      <x>510</x>
+      <y>690</y>
       <width>141</width>
       <height>81</height>
      </rect>
@@ -482,14 +380,14 @@
    <widget class="QPushButton" name="pushButton_16">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>850</y>
+      <x>510</x>
+      <y>880</y>
       <width>141</width>
       <height>81</height>
      </rect>
     </property>
     <property name="text">
-     <string>Use</string>
+     <string>Quit</string>
     </property>
    </widget>
    <widget class="QLabel" name="room01">
@@ -843,16 +741,288 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="shop">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>380</y>
+      <width>182</width>
+      <height>157</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap1">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>740</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap2">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>750</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap3">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>746</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap4">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>740</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap5">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>760</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap6">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>720</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap7">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>720</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap8">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>750</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap10">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>730</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trap9">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>710</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint1">
+    <property name="geometry">
+     <rect>
+      <x>1670</x>
+      <y>740</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint2">
+    <property name="geometry">
+     <rect>
+      <x>1690</x>
+      <y>730</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint3">
+    <property name="geometry">
+     <rect>
+      <x>1720</x>
+      <y>710</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint4">
+    <property name="geometry">
+     <rect>
+      <x>1750</x>
+      <y>740</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint5">
+    <property name="geometry">
+     <rect>
+      <x>1780</x>
+      <y>690</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="blueprint6">
+    <property name="geometry">
+     <rect>
+      <x>1780</x>
+      <y>720</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>map</zorder>
    <zorder>textDisplay</zorder>
    <zorder>counter</zorder>
    <zorder>progressBar</zorder>
    <zorder>trapTree_2</zorder>
    <zorder>inventoryTree</zorder>
-   <zorder>placeTrap</zorder>
+   <zorder>place</zorder>
    <zorder>pushButton_13</zorder>
    <zorder>pushButton_14</zorder>
-   <zorder>pushButton_15</zorder>
+   <zorder>talk</zorder>
    <zorder>pushButton_16</zorder>
    <zorder>swordBlueprint</zorder>
    <zorder>room01</zorder>
@@ -873,6 +1043,23 @@
    <zorder>room15</zorder>
    <zorder>playerRoom</zorder>
    <zorder>gridLayoutWidget</zorder>
+   <zorder>shop</zorder>
+   <zorder>trap1</zorder>
+   <zorder>trap2</zorder>
+   <zorder>trap3</zorder>
+   <zorder>trap4</zorder>
+   <zorder>trap5</zorder>
+   <zorder>trap6</zorder>
+   <zorder>trap7</zorder>
+   <zorder>trap8</zorder>
+   <zorder>trap10</zorder>
+   <zorder>trap9</zorder>
+   <zorder>blueprint1</zorder>
+   <zorder>blueprint2</zorder>
+   <zorder>blueprint3</zorder>
+   <zorder>blueprint4</zorder>
+   <zorder>blueprint5</zorder>
+   <zorder>blueprint6</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

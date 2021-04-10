@@ -1,4 +1,5 @@
 #include "Trap.h"
+#include <string>
 
 Trap::Trap(const string &name, const string &description, int timeMod, int dmgType,int baseDmg, int maxDmg) :
     Item(name, description, timeMod)
@@ -46,18 +47,12 @@ void Trap::setVulnerable(bool vulnerable){
     if(vulnerable) dealtDmg *= 2;
 }
 
-bool Trap::isVulnerable(){
-    return vulnerable;
-}
 
 void Trap::setResistant(bool resistant){
     this->resistant = resistant;
     if(resistant) dealtDmg /= 2;
 }
 
-bool Trap::isResistant(){
-    return resistant;
-}
 
 string Trap::toString(){
     return "Name: " + getName() +

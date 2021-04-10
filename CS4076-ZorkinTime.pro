@@ -12,24 +12,29 @@ SOURCES += \
     Blueprint.cpp \
     Character.cpp \
     Item.cpp \
+    Riskfactor.cpp \
     Room.cpp \
     Trap.cpp \
     World.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    shopInterface.cpp
 
 HEADERS += \
     Blueprint.h \
     Character.h \
-    InventoryTemplate.tci \
+    InventoryArrayTemp.tci \
     Item.h \
+    Riskfactor.h \
     Room.h \
     Trap.h \
     World.h \
-    mainwindow.h
+    mainwindow.h \
+    shopInterface.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    shopInterface.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
