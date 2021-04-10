@@ -42,6 +42,10 @@ int Trap::getDealtDmg(){
     return dealtDmg;
 }
 
+int Trap::getMaxDmg(){
+    return maxDmg;
+}
+
 void Trap::setVulnerable(bool vulnerable){
     this->vulnerable = vulnerable;
     if(vulnerable) dealtDmg *= 2;
