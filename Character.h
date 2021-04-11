@@ -1,6 +1,7 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
 #include "Trap.h"
+#include "Blueprint.h"
 #include "InventoryArrayTemp.tci"
 
 #include <string>
@@ -11,6 +12,7 @@ class Character {
 private:
     string description;
     InventoryTemplate<Trap> trapInventory;
+    InventoryTemplate<Blueprint> blueprintInv;
 public:
     //Character();
     Character(string description = "player", int inventorySize = 10);

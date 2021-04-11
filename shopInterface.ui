@@ -131,7 +131,7 @@
     <attribute name="title">
      <string>Blueprints</string>
     </attribute>
-    <widget class="QTreeWidget" name="trapTree_2">
+    <widget class="QTreeWidget" name="blueprintTree">
      <property name="geometry">
       <rect>
        <x>10</x>

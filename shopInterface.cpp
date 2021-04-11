@@ -30,9 +30,12 @@ void ShopInterface::on_exit_clicked()
 
 void ShopInterface::on_buy_clicked()
 {
-    if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
-        mainInterface->addPlayerItem(mainInterface->world->shop.getTrap(selectedItem->text(0).toStdString()));
-    }
+//    if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
+//        mainInterface->addPlayerItem(mainInterface->world->shop.getTrap(selectedItem->text(0).toStdString()));
+//    }
+//    else if(ui->blueprints->selectionModel()->isSelected(ui->trapTree->currentIndex())){
+//        mainInterface->addPlayerItem(mainInterface->world->shop.getBlueprint(selectedItem->text(0).toStdString()));
+//    }
 }
 
 
@@ -41,5 +44,10 @@ void ShopInterface::on_trapTree_itemClicked(QTreeWidgetItem *item)
     selectedItem = item;
     ui->itemDesc->clear();
     ui->itemDesc->appendPlainText(QString::fromStdString(mainInterface->world->shop.getTrap(item->text(0).toStdString())->getDescription()));
+}
 
+
+void ShopInterface::on_blueprintTree_itemClicked(QTreeWidgetItem *item)
+{
+    selectedItem = item;
 }

@@ -3,7 +3,7 @@
 //<LUKE><TBD>Anywhere TBD means To Be Deleted
 
 //<LUKE> Implemented intializer list for trap inventory
-Character::Character(string description, int inventorySize) : trapInventory(inventorySize) {
+Character::Character(string description, int inventorySize) : trapInventory(inventorySize), blueprintInv(inventorySize) {
 	this->description = description;
 }
 
@@ -11,7 +11,6 @@ void Character::addTrap(Trap* trap){
     trapInventory.add(*trap);
 }
 
-//<LUKE> Only to ever be called by description, as pos in array doesnt matter
 Trap* Character::getTrap(string name){
     return trapInventory.get(name);
 }
@@ -24,6 +23,19 @@ void Character::removeTrap(string name){
 
     trapInventory.remove(*getTrap(name));
 }
+
+//void Character::addBlueprint(Trap* blueprint){
+//    trapInventory.add(*trap);
+//}
+
+//Trap* Character::getTrap(string name){
+//    return trapInventory.get(name);
+//}
+
+//void Character::removeTrap(string name){
+
+//    trapInventory.remove(*getTrap(name));
+//}
 
 
 int Character::getTrapArrLength(){

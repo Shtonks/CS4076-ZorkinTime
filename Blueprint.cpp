@@ -1,6 +1,7 @@
 #include "Blueprint.h"
 
-Blueprint::Blueprint(int dmgType, int increase){
+Blueprint::Blueprint(const string &name, const string &description, int timeMod, int dmgType, int increase) :
+    Item(name, description, timeMod){
     this->dmgType = dmgType;
     this->increase = increase;
 }

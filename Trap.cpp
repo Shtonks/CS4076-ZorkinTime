@@ -61,6 +61,10 @@ int Trap::getMaxDmg(){
     return maxDmg;
 }
 
+int Trap::getBaseDmg(){
+    return baseDmg;
+}
+
 void Trap::setVulnerable(int vulnerablility){
     if(dmgType == vulnerablility) vulnerable = true;
     if(vulnerable) dealtDmg *= 2;
