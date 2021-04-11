@@ -24,6 +24,10 @@ string Trap::getDmgType(){
     return out;
 }
 
+int Trap::getDmgTypeNum(){
+    return dmgType;
+}
+
 void Trap::setDmgType(int dmgType){
     this->dmgType = dmgType;
 }
@@ -40,6 +44,11 @@ void Trap::setDealtDmg(double factor){
 
 int Trap::getDealtDmg(){
     return dealtDmg;
+}
+
+void Trap::setMaxDmg(int inc){
+    maxDmg += inc;
+    setDealtDmg();
 }
 
 int Trap::getMaxDmg(){

@@ -5,7 +5,7 @@ Blueprint::Blueprint(int dmgType, int increase){
     this->increase = increase;
 }
 
-void Blueprint::enhanceTrap(Trap *t){
-    if(dmgType != t->getDmgType()) return;
-    t->setMaxDmg(increase);
+void Blueprint::enhanceTrap(Trap& t){
+    if(dmgType != t.getDmgTypeNum()) return;
+    t.setMaxDmg(increase);
 }

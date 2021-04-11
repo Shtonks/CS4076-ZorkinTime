@@ -23,10 +23,12 @@ class Trap : public Item, public RiskFactor {
     public:
         Trap(const string &name = "", const string &description = "", int timeMod = 0, int dmgType = NOTHING,int baseDmg = 0, int maxDmg = 1);
         string getDmgType();
+        int getDmgTypeNum();
         string getDmgType(int typeNum);
         void setDmgType(int dmgtype);
         void setDealtDmg(); //<ISHA> calculates damage dealt between baseDamage - maxDamage
         void setDealtDmg(double factor); //<ISHA> Multiplies Dealt damage by a factor depending on room
+        void setMaxDmg(int inc);
         int getDealtDmg();
         int getMaxDmg();
         void setVulnerable(int vulnerability);

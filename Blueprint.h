@@ -9,7 +9,7 @@ private:
     int increase;
 public:
     Blueprint(int dmgType, int increase);
-    void enhanceTrap(Trap* t);
+    void enhanceTrap(Trap& t);
 };
 
 #endif // BLUEPRINT_H
