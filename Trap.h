@@ -31,7 +31,9 @@ class Trap : public Item, public RiskFactor {
         void setMaxDmg(int inc);
         int getDealtDmg();
         int getMaxDmg();
-        void setVulnerable(int vulnerability);
-        void setResistant(int resistantance);
+        int getBaseDmg();
+        void setVulnerable(int vulnerable);
+        void setResistant(int resistant);
         string toString();
+        bool operator== (const Trap & rhs) const;   // c1 == c2
 };
