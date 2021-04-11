@@ -46,14 +46,14 @@ int Trap::getMaxDmg(){
     return maxDmg;
 }
 
-void Trap::setVulnerable(bool vulnerable){
-    this->vulnerable = vulnerable;
+void Trap::setVulnerable(int vulnerablility){
+    if(dmgType == vulnerablility) vulnerable = true;
     if(vulnerable) dealtDmg *= 2;
 }
 
 
-void Trap::setResistant(bool resistant){
-    this->resistant = resistant;
+void Trap::setResistant(int resistance){
+    if(dmgType == resistance) resistant = true;
     if(resistant) dealtDmg /= 2;
 }
 

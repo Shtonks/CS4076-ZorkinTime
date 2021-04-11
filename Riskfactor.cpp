@@ -1,7 +1,6 @@
 #include "Riskfactor.h"
 
-RiskFactor::RiskFactor()
-{
+RiskFactor::RiskFactor(){
 
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Item.h"
+#include "Bigbad.h"
 #include "Riskfactor.h"
 #include <string>
 #include <time.h>
@@ -19,8 +20,6 @@ class Trap : public Item, public RiskFactor {
         int maxDmg;
         int baseDmg;
         int dealtDmg;
-        bool vulnerable;
-        bool resistant;
     public:
         Trap(const string &name = "", const string &description = "", int timeMod = 0, int dmgType = NOTHING,int baseDmg = 0, int maxDmg = 1);
         string getDmgType();
@@ -30,7 +29,7 @@ class Trap : public Item, public RiskFactor {
         void setDealtDmg(double factor); //<ISHA> Multiplies Dealt damage by a factor depending on room
         int getDealtDmg();
         int getMaxDmg();
-        void setVulnerable(bool vulnerable);
-        void setResistant(bool resistant);
+        void setVulnerable(int vulnerability);
+        void setResistant(int resistantance);
         string toString();
 };
