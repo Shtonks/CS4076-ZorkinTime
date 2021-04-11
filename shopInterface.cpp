@@ -39,7 +39,7 @@ void ShopInterface::on_buy_clicked()
 void ShopInterface::on_trapTree_itemClicked(QTreeWidgetItem *item)
 {
     selectedItem = item;
-    QTreeWidgetItem *fdjo ;
-    fdjo = new QTreeWidgetItem(ui->itemDescTree);
-    fdjo->setText(0, selectedItem->text(1));
+    ui->itemDesc->clear();
+    ui->itemDesc->appendPlainText(QString::fromStdString(mainInterface->world->shop.getTrap(item->text(0).toStdString())->getDescription()));
+
 }

@@ -35,12 +35,21 @@ private slots:
 
     void on_trapTree_itemClicked(QTreeWidgetItem *item);
 
+    void on_quit_clicked();
+
+    void on_destroy_clicked();
+
+    inline void on_nextTurn_clicked();
+
+    void on_trapTree_currentItemChanged(QTreeWidgetItem *current);
+
 private:
     Ui::MainWindow *ui;
     World *world;
     void movePlayerHighlight();
     void addPlayerItem(Item *thing);
     QTreeWidgetItem* selectedItem;
+    int playerTrapTotal = 0;
 
     friend class ShopInterface;
 };

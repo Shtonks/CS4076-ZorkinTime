@@ -12,13 +12,6 @@
 
 using namespace std;
 
-class InvalidLength : public exception{
-    public:
-        const char * what() const throw()
-        {
-            return "Attempted to create array with 0 elements or less\n";
-        }
-};
 
 template <class T>
 class InventoryTemplate
@@ -32,42 +25,13 @@ public:
         InventoryTemplate(5);
     }
 
-    //<LUKE> Try block makes sure type is valid. Length is then check to ensure is valid and custom exception is thrown if isn't.
-    //Then inv array is initialised and filled with 0's
     InventoryTemplate(int length)
     {
         if(length > 0){
             inventory = new T[length];
             this->length = length;
-//            for(int i = 0; i < length; i++){
-//                inventory[i] = 0;
-//            }
         }
     }
-
-//        try {
-//          if(typeid(T) == typeid(Trap) && typeid(T) == typeid(Blueprint)){
-//              if(this->length > 0){
-//                  inventory = new T[length];
-//                  this->length = length;
-////                  for(int i = 0; i < length; i++){
-////                      inventory[i] = 0;
-////                  }
-//              }else{
-//                  InvalidLength x;
-//                  throw x;
-//              }
-//          }else{
-//              throw bad_typeid();
-//          }
-//        }
-//        catch(const std::bad_typeid& e) {
-//            cout << e.what() << "\n";
-//        }
-//        catch(const InvalidLength& e) {
-//            cout << e.what() << "\n";
-//        }
-//    }
 
     ~InventoryTemplate()
     {
@@ -85,13 +49,14 @@ public:
     }
 
     //<LUKE> Have chosen not to delete empty space in array, as in this code I think the inventory will flucuate enough to justify that
-    void remove(const T &item){
+    void remove(T &item){
         for(int i = 0; i < length; i++){
             if(inventory[i] == item){
-                for(int j = i; j < length; j++){
+                for(int j = i; j < length - 1; j++){
                     inventory[j] = inventory[j + 1];
                 }
-                inventory[length-1] = 0;
+                inventory[length - 1] = T();
+                return;
             }
         }
     }
@@ -108,7 +73,14 @@ public:
         throw out_of_range("No more room in inventory");
     }
 
-    T* get(string name){
+    T* get(const T& item){
+        for(int i = 0; i < length; i++){
+            if(inventory[i] == item) return &inventory[i];
+        }
+        return nullptr;
+    }
+
+    T* get(const string name){
         for(int i = 0; i < length; i++){
             if(inventory[i].getName() == name) return &inventory[i];
         }

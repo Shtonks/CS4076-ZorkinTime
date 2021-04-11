@@ -70,21 +70,11 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="counter">
+   <widget class="QProgressBar" name="bossHealth">
     <property name="geometry">
      <rect>
-      <x>1700</x>
-      <y>10</y>
-      <width>181</width>
-      <height>71</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>10</y>
+      <x>760</x>
+      <y>30</y>
       <width>781</width>
       <height>41</height>
      </rect>
@@ -106,18 +96,19 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTreeWidget" name="trapTree_2">
+   <widget class="QTreeWidget" name="placedTrapsTree">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>410</y>
-      <width>665</width>
-      <height>261</height>
+      <y>480</y>
+      <width>681</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <family>Bahnschrift</family>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="autoScroll">
@@ -131,46 +122,29 @@
     </attribute>
     <column>
      <property name="text">
-      <string/>
-     </property>
-    </column>
-    <column>
-     <property name="text">
       <string>Trap</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>Build time left</string>
+      <string>Damage Type</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>Damage</string>
+      <string>Base Damage</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>Location</string>
+      <string>Max Damage</string>
      </property>
     </column>
-    <item>
+    <column>
      <property name="text">
-      <string/>
+      <string>Build time</string>
      </property>
-     <property name="text">
-      <string>Spikes</string>
-     </property>
-     <property name="text">
-      <string> 5</string>
-     </property>
-     <property name="text">
-      <string>100</string>
-     </property>
-     <property name="text">
-      <string>1</string>
-     </property>
-    </item>
+    </column>
    </widget>
    <widget class="QTabWidget" name="inventoryTree">
     <property name="geometry">
@@ -178,13 +152,13 @@
       <x>10</x>
       <y>10</y>
       <width>681</width>
-      <height>391</height>
+      <height>431</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Bahnschrift</family>
-      <pointsize>11</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="currentIndex">
@@ -200,13 +174,13 @@
         <x>10</x>
         <y>10</y>
         <width>661</width>
-        <height>251</height>
+        <height>271</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Bahnschrift</family>
-        <pointsize>10</pointsize>
+        <pointsize>11</pointsize>
        </font>
       </property>
       <property name="autoScroll">
@@ -230,6 +204,11 @@
       </column>
       <column>
        <property name="text">
+        <string>Base Damage</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Max Damage</string>
        </property>
       </column>
@@ -239,25 +218,46 @@
        </property>
       </column>
      </widget>
-     <widget class="QTreeWidget" name="itemDescTree">
+     <widget class="QPlainTextEdit" name="njask">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>270</y>
+        <y>280</y>
         <width>661</width>
-        <height>81</height>
+        <height>41</height>
        </rect>
       </property>
-      <column>
-       <property name="text">
-        <string>Item Desc</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Trap Total</string>
-       </property>
-      </column>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string>Item Desc</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="itemDesc">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>310</y>
+        <width>661</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Bahnschrift</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="blueprints">
@@ -270,7 +270,7 @@
         <x>10</x>
         <y>10</y>
         <width>655</width>
-        <height>280</height>
+        <height>351</height>
        </rect>
       </property>
       <property name="font">
@@ -290,105 +290,21 @@
       </attribute>
       <column>
        <property name="text">
-        <string/>
+        <string>Blueprint</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Name</string>
+        <string>Damage Boost Type</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Trap that can Upgrade</string>
+        <string>Damage Boost Amount</string>
        </property>
       </column>
-      <column>
-       <property name="text">
-        <string>More shti?? this is my idea too, cmon</string>
-       </property>
-      </column>
-      <item>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="text">
-        <string>Spikes</string>
-       </property>
-       <property name="text">
-        <string> 5</string>
-       </property>
-       <property name="text">
-        <string>100</string>
-       </property>
-      </item>
      </widget>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="place">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>690</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Place Trap</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_13">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>790</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Destroy Trap</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_14">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>880</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Upgrade Trap</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="talk">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>690</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Talk</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_16">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>880</y>
-      <width>141</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Quit</string>
-    </property>
    </widget>
    <widget class="QLabel" name="room01">
     <property name="geometry">
@@ -665,13 +581,73 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>690</y>
-      <width>301</width>
-      <height>261</height>
+      <width>661</width>
+      <height>291</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="horizontalSpacing">
+      <number>22</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>7</number>
+     </property>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="Left">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">image: url(:/Images/Direction/ZorkPics/leftArrow.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="Up">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">image: url(:/Images/Direction/ZorkPics/upArrow.png);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="destroy">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiBold</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Destroy</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="Down">
        <property name="sizePolicy">
@@ -704,38 +680,60 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="Up">
-       <property name="enabled">
-        <bool>true</bool>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="place">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>120</height>
+        </size>
        </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/Images/Direction/ZorkPics/upArrow.png);</string>
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiBold</family>
+         <pointsize>16</pointsize>
+        </font>
        </property>
        <property name="text">
-        <string/>
+        <string>Place</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="Left">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="talk">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>120</height>
+        </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/Images/Direction/ZorkPics/leftArrow.png);</string>
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiBold</family>
+         <pointsize>16</pointsize>
+        </font>
        </property>
        <property name="text">
-        <string/>
+        <string>Talk</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QPushButton" name="quit">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>120</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Bahnschrift SemiBold</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Quit</string>
        </property>
       </widget>
      </item>
@@ -1013,17 +1011,77 @@
      <string/>
     </property>
    </widget>
+   <widget class="QTextEdit" name="counter">
+    <property name="geometry">
+     <rect>
+      <x>1760</x>
+      <y>20</y>
+      <width>121</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift SemiBold</family>
+      <pointsize>17</pointsize>
+     </font>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Bahnschrift SemiBold'; font-size:17pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;200&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="nextTurn">
+    <property name="geometry">
+     <rect>
+      <x>1600</x>
+      <y>20</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift SemiBold</family>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Next Turn</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="njask_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>450</y>
+      <width>681</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="plainText">
+     <string>Placed Traps</string>
+    </property>
+   </widget>
    <zorder>map</zorder>
    <zorder>textDisplay</zorder>
-   <zorder>counter</zorder>
-   <zorder>progressBar</zorder>
-   <zorder>trapTree_2</zorder>
+   <zorder>bossHealth</zorder>
    <zorder>inventoryTree</zorder>
-   <zorder>place</zorder>
-   <zorder>pushButton_13</zorder>
-   <zorder>pushButton_14</zorder>
-   <zorder>talk</zorder>
-   <zorder>pushButton_16</zorder>
    <zorder>swordBlueprint</zorder>
    <zorder>room01</zorder>
    <zorder>room02</zorder>
@@ -1043,7 +1101,6 @@
    <zorder>room15</zorder>
    <zorder>playerRoom</zorder>
    <zorder>gridLayoutWidget</zorder>
-   <zorder>shop</zorder>
    <zorder>trap1</zorder>
    <zorder>trap2</zorder>
    <zorder>trap3</zorder>
@@ -1060,6 +1117,11 @@
    <zorder>blueprint4</zorder>
    <zorder>blueprint5</zorder>
    <zorder>blueprint6</zorder>
+   <zorder>counter</zorder>
+   <zorder>nextTurn</zorder>
+   <zorder>shop</zorder>
+   <zorder>njask_2</zorder>
+   <zorder>placedTrapsTree</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

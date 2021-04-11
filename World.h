@@ -15,7 +15,7 @@ private:
     Character player;
     Character shop;
     Room *genRooms[16];
-    int numMoves = 100;
+    int numMoves = 200;
     Room* currentRoom;
     Room* shopRoom;
     void createRooms();
@@ -35,4 +35,6 @@ public:
     string getCurrentRoomLabel();
     Room** getGenRooms();
     string getShopRoomLabel();
+    int getNumMoves();
+    void setNumMoves(int n);
 };
