@@ -10,6 +10,12 @@ Trap::Trap(const string &name, const string &description, int timeMod, int dmgTy
     setDealtDmg();
 }
 
+//<LUKE> Overloaded operator for Trap == Trap
+bool Trap::operator== (const Trap & rhs) const {
+   return (name == rhs.getName());
+}
+
+
 string Trap::getDmgType(){
     string out;
     switch(dmgType){
