@@ -85,7 +85,7 @@
       </property>
      </column>
     </widget>
-    <widget class="QPlainTextEdit" name="njask">
+    <widget class="QPlainTextEdit" name="Title">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -131,7 +131,7 @@
     <attribute name="title">
      <string>Blueprints</string>
     </attribute>
-    <widget class="QTreeWidget" name="trapTree_2">
+    <widget class="QTreeWidget" name="blueprintTree">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -254,8 +254,8 @@
    </property>
   </widget>
   <zorder>label</zorder>
-  <zorder>inventoryTree</zorder>
   <zorder>horizontalLayoutWidget</zorder>
+  <zorder>inventoryTree</zorder>
  </widget>
  <resources/>
  <connections/>

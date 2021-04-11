@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Item.h"
-#include "Bigbad.h"
+//#include "Bigbad.h"
 #include "Riskfactor.h"
 #include <string>
 #include <time.h>
@@ -33,8 +33,6 @@ class Trap : public Item, public RiskFactor {
         int getDealtDmg();
         int getMaxDmg();
         int getBaseDmg();
-        void setVulnerable(int vulnerable);
-        void setResistant(int resistant);
-        string toString();
-        bool operator== (const Trap & rhs) const;   // c1 == c2
+        void setVulnerable(int vulnerablility);
+        void setResistant(int resistance);
 };

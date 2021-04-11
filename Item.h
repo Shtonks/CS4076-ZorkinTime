@@ -24,9 +24,6 @@ class Item {
         void setDescription(string desc);
         int getTimeMod();
 		void setTimeMod(int newMod);
-        int getAmount();
-        void setAmount(int amount);
-        bool isOwned();
-        void setOwned(bool owned);
+        bool operator== (const Item & rhs) const;   // c1 == c2
         string toString();
 };

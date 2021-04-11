@@ -7,7 +7,6 @@
 #include <string>
 
 #include "Trap.h"
-//#include "Potion.h"
 #include "Blueprint.h"
 
 using namespace std;

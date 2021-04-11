@@ -6,6 +6,7 @@
 #include <vector>
 #include "Item.h"
 #include "Trap.h"
+#include "Blueprint.h"
 
 using namespace std;
 using std::vector;
@@ -21,6 +22,8 @@ private:
     string bonusDmgType = "nothing";
     Trap* trapInRoom = nullptr;
     string icon;
+    Blueprint* blueprintInRoom = nullptr;
+
 
 public:
     Room(string description, int dmgType);
@@ -36,6 +39,8 @@ public:
     string getIcon();
     Trap* getTrapInRoom();
     void setTrapInRoom(Trap* t);
+    Blueprint* getBlueprintInRoom();
+    void setBlueprintInRoom(Blueprint* b);
 
 };
 

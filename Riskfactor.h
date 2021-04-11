@@ -6,9 +6,9 @@ class RiskFactor
 {
 public:
     RiskFactor();
-    virtual void setVulnerable(int vulnerablility) = 0;
+    virtual void setVulnerable(int vulnerable) = 0;
     bool getVulnerable();
-    virtual void setResistant(int resistance) = 0;
+    virtual void setResistant(int resistant) = 0;
     bool getResistant();
 
 protected:

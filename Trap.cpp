@@ -10,11 +10,6 @@ Trap::Trap(const string &name, const string &description, int timeMod, int dmgTy
     setDealtDmg();
 }
 
-//<LUKE> Overloaded operator for Trap == Trap
-bool Trap::operator== (const Trap & rhs) const {
-   return (name == rhs.getName());
-}
-
 
 string Trap::getDmgType(){
     string out;
@@ -61,6 +56,10 @@ int Trap::getMaxDmg(){
     return maxDmg;
 }
 
+int Trap::getBaseDmg(){
+    return baseDmg;
+}
+
 void Trap::setVulnerable(int vulnerablility){
     if(dmgType == vulnerablility) vulnerable = true;
     if(vulnerable) dealtDmg *= 2;
@@ -70,13 +69,4 @@ void Trap::setVulnerable(int vulnerablility){
 void Trap::setResistant(int resistance){
     if(dmgType == resistance) resistant = true;
     if(resistant) dealtDmg /= 2;
-}
-
-
-string Trap::toString(){
-    return "Name: " + getName() +
-           "\nAmount: " + to_string(getAmount()) +
-           "\nTime Taken: " + to_string(getTimeMod()) +
-           "\n"+ to_string(baseDmg)+ "-" + to_string(maxDmg) + " " + getDmgType() + "damage" +
-           "\nDescription: " + getDescription();
 }

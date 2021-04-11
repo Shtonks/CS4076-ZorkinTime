@@ -18,7 +18,7 @@ namespace globals{
 //    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
 //}
 
-World::World() : player("player"), shop("shop", 6) {
+World::World() : player("player", 10, 4), shop("shop", 6, 6) {
     createRooms();
     createItems();
 }
@@ -163,6 +163,13 @@ void World::createItems(){
 
     shop.addTrap(new Trap("Mustard Gas", "Acid extracted from a now extinct species known as “Kikimore”, is vapourised to inflict a slow, agonising death",
                           8, POISON, 10, 30));
+
+    shop.addBlueprint(new Blueprint("Circle of the Sword", "", 20, SLASHING, 30));
+    shop.addBlueprint(new Blueprint("Circle of the Spear", "", 20, PIERCING, 30));
+    shop.addBlueprint(new Blueprint("Circle of the Mace", "", 20, BLUDGEONING, 30));
+    shop.addBlueprint(new Blueprint("Circle of Flame", "", 20, FIRE, 30));
+    shop.addBlueprint(new Blueprint("Circle of Frost", "", 20, COLD, 30));
+    shop.addBlueprint(new Blueprint("Circle of the Snake", "", 20, POISON, 30));
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??

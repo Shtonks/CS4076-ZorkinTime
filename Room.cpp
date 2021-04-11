@@ -64,13 +64,23 @@ Trap* Room::getTrapInRoom(){
     return trapInRoom;
 }
 
+void Room::setTrapInRoom(Trap* t){
+    trapInRoom = t;
+}
+
+Blueprint* Room::getBlueprintInRoom(){
+    return blueprintInRoom;
+}
+
+void Room::setBlueprintInRoom(Blueprint* b){
+    blueprintInRoom = b;
+}
+
 
 string Room::getIcon(){
     return icon;
 }
 
-void Room::setTrapInRoom(Trap* t){
-    trapInRoom = t;
-}
+
 
 

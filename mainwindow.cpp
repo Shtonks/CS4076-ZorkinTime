@@ -109,19 +109,36 @@ void MainWindow::on_swordBlueprint_clicked()
 
 void MainWindow::addPlayerItem(Item *thing){
     try {
-        if(Trap* trap = dynamic_cast<Trap*>(thing)) world->player.addTrap(trap);
+        if(Trap* trap = dynamic_cast<Trap*>(thing)){
+            world->player.addTrap(trap);
+            ui->textDisplay->appendPlainText("Adding item");
 
+            if(playerTrapTotal < 10){
+                ui->textDisplay->appendPlainText("Insde if");
+
+                addItem(thing, ui->trapTree);
+                playerTrapTotal++;
+                ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
+
+            }
+            else{
+                ui->textDisplay->appendPlainText("You hit your trap limit, sorry my guy");
+            }
+        }
+        else if(Blueprint* blue = dynamic_cast<Blueprint*>(thing)){
+            world->player.addBlueprint(blue);
+            if(playerBlueTotal < 4){
+                addItem(thing, ui->blueprintTree);
+                playerBlueTotal++;
+            }
+            else{
+                ui->textDisplay->appendPlainText("You hit your blueprint limit, sorry my guy");
+            }
+        }
     }  catch (out_of_range &oop) {
         ui->textDisplay->appendPlainText(QString::fromStdString(oop.what()));
     }
-    if(playerTrapTotal < 10){
-        addItem(thing, ui->trapTree);
-        playerTrapTotal++;
-        ui->textDisplay->appendPlainText("testy eset");
-    }
-    else{
-        ui->textDisplay->appendPlainText("You hit your trap limit, sorry my guy");
-    }
+
 }
 
 void MainWindow::addItem(Item *thing, QTreeWidget* theTree){
@@ -137,7 +154,12 @@ void MainWindow::addItem(Item *thing, QTreeWidget* theTree){
         item->setText(4, QString::fromStdString(to_string(trap->getTimeMod())));       //Build Time
     }
     else if(Blueprint* blueprint = dynamic_cast<Blueprint*>(thing)){
-
+        QTreeWidgetItem *item ;
+        item = new QTreeWidgetItem(theTree);
+        item->setText(0, QString::fromStdString(blueprint->getName()));                     //Trap Name
+        item->setText(1, QString::fromStdString(blueprint->getDmgType()));                  //Dmg Type
+        item->setText(2, QString::fromStdString(to_string(blueprint->getIncrease())));       //Base Dmg
+        item->setText(3, QString::fromStdString(to_string(blueprint->getTimeMod())));
     }
 }
 
@@ -166,45 +188,54 @@ void MainWindow::on_place_clicked()
                         //<LUKE> At this point, we def successful
                         trapName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
                         string trapStringName = ":/Images/Direction/ZorkPics/" + selectedItem->text(0).toStdString() + ".png";
-                        //TEMP
-                        ui->textDisplay->appendPlainText(QString::fromStdString(trapStringName));
                         QPixmap pix(QString::fromStdString(trapStringName));
                         trapName->setPixmap(pix);
-                        ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 
                         world->numMoves -= stoi(selectedItem->text(4).toStdString());
                         ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
 
-                        ui->textDisplay->appendPlainText(selectedItem->text(0));
                         string name = selectedItem->text(0).toStdString();
                         addItem(world->player.getTrap(name), ui->placedTrapsTree);
                         world->getCurrentRoom()->setTrapInRoom(world->player.getTrap(name));
                         world->player.removeTrap(name);
-                        ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
 
                         delete selectedItem;
                         return;
                     }
                 }
-            } else if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
-                    QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
-                    QLabel *blueprintName;
-                    for(int i = 0; i < 6; i++){
-                        string blueprintSearchName = "blueprint" + std::to_string(i+1);
-                        blueprintName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(blueprintSearchName), Qt::FindDirectChildrenOnly);
-                        if(blueprintName->width() != roomName->width()){
-                            blueprintName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
-                            QPixmap pix(QString::fromStdString(":/Images/Direction/ZorkPics/SwordRoom.png"));
-                            blueprintName->setPixmap(pix);
-                            ui->textDisplay->appendPlainText("Trap placed");
-                            return;
-                        }
+            }
+        }else if(world->getCurrentRoom()->getBlueprintInRoom() == nullptr){
+            if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
+                QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
+                QLabel *blueprintName;
+                for(int i = 0; i < 6; i++){
+                    string blueprintSearchName = "blueprint" + std::to_string(i+1);
+                    blueprintName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(blueprintSearchName), Qt::FindDirectChildrenOnly);
+                    if(blueprintName->width() != roomName->width()){
+                        blueprintName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
+                        string blueprintStringName = ":/Images/Direction/ZorkPics/player.png";
+                        QPixmap pix(QString::fromStdString(blueprintStringName));
+                        blueprintName->setPixmap(pix);
+
+                        world->numMoves -= stoi(selectedItem->text(3).toStdString());
+                        ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
+
+                        string name = selectedItem->text(0).toStdString();
+                        addItem(world->player.getBlueprint(name), ui->placedTrapsTree);
+                        world->getCurrentRoom()->setBlueprintInRoom(world->player.getBlueprint(name));
+                        world->player.removeBlueprint(name);
+
+                        delete selectedItem;
+                        return;
                     }
+                }
              }
-        }else{
-            TrapExists x;
-            throw x;
+        else{
+                    TrapExists x;
+                    throw x;
+                }
         }
+
     }
     catch (const TrapExists& e) {
         ui->textDisplay->appendPlainText(e.what());
@@ -234,16 +265,20 @@ void MainWindow::on_destroy_clicked()
 {
     if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
         string name = selectedItem->text(0).toStdString();
-        ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
         world->player.removeTrap(name);
-        ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
         delete selectedItem;
         ui->textDisplay->appendPlainText("Item destroyed");
         playerTrapTotal--;
+    }else if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
+        string name = selectedItem->text(0).toStdString();
+        world->player.removeBlueprint(name);
+        delete selectedItem;
+        ui->textDisplay->appendPlainText("Blueprint destroyed");
+        playerBlueTotal--;
     }
 }
 
-inline void MainWindow::on_nextTurn_clicked()
+void MainWindow::on_nextTurn_clicked()
 {
     world->numMoves -= 1;
     ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
@@ -255,4 +290,9 @@ void MainWindow::on_trapTree_currentItemChanged(QTreeWidgetItem *current)
     selectedItem = current;
     ui->itemDesc->clear();
     if(current != nullptr) ui->itemDesc->appendPlainText(QString::fromStdString(world->player.getTrap(current->text(0).toStdString())->getDescription()));
+}
+
+void MainWindow::on_blueprintTree_currentItemChanged(QTreeWidgetItem *current)
+{
+    selectedItem = current;
 }

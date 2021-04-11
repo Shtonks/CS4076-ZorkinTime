@@ -39,9 +39,11 @@ private slots:
 
     void on_destroy_clicked();
 
-    inline void on_nextTurn_clicked();
+    void on_nextTurn_clicked();
 
     void on_trapTree_currentItemChanged(QTreeWidgetItem *current);
+
+    void on_blueprintTree_currentItemChanged(QTreeWidgetItem *current);
 
 private:
     Ui::MainWindow *ui;
@@ -50,6 +52,7 @@ private:
     void addPlayerItem(Item *thing);
     QTreeWidgetItem* selectedItem;
     int playerTrapTotal = 0;
+    int playerBlueTotal = 0;
 
     friend class ShopInterface;
 };

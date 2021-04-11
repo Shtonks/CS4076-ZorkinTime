@@ -33,21 +33,8 @@ void Item::setTimeMod(int newMod){
 	timeMod = newMod;
 }
 
-int Item::getAmount(){
-    return amount;
-}
-
-void Item::setAmount(int change){
-    amount += change;
-    if(amount == 0) owned = false;
-}
-
-bool Item::isOwned(){
-    return owned;
-}
-
-void Item::setOwned(bool owned){
-    this->owned = owned;
+bool Item::operator== (const Item & rhs) const {
+   return (name == rhs.getName());
 }
 
 string Item::toString(){
