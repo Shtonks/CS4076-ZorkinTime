@@ -20,6 +20,8 @@ class Trap : public Item, public RiskFactor {
         int maxDmg;
         int baseDmg;
         int dealtDmg;
+        int vulnerable;
+        int resistant;
     public:
         Trap(const string &name = "", const string &description = "", int timeMod = 0, int dmgType = NOTHING,int baseDmg = 0, int maxDmg = 1);
         string getDmgType();
