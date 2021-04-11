@@ -35,6 +35,7 @@ public:
     void placeTrap(Trap& t);
     string getIcon();
     Trap* getTrapInRoom();
+    void setTrapInRoom(Trap* t);
 
 };
 

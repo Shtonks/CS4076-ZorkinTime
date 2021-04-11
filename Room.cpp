@@ -69,4 +69,8 @@ string Room::getIcon(){
     return icon;
 }
 
+void Room::setTrapInRoom(Trap* t){
+    trapInRoom = t;
+}
+
 
