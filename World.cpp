@@ -18,7 +18,7 @@ namespace globals{
 //    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
 //}
 
-World::World() : player("player"), shop("shop") {
+World::World() : player("player"), shop("shop", 6) {
     createRooms();
     createItems();
 }
@@ -136,20 +136,33 @@ Room** World::getGenRooms()
     return genRooms;
 }
 
+int World::getNumMoves(){
+    return numMoves;
+}
+
+void World::setNumMoves(int n){
+    numMoves = n;
+}
+
 void World::createItems(){
-    //<LUKE> Completely randomly assigned vals by ME
+    //<LUKE> Completely randomly assigned vals by me
+    shop.addTrap(new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
+                          8, SLASHING, 20, 50));
 
-    Trap *pendulum = new Trap("Pendulum of Regret", "Sharpened blade which swings back and forth, slicing any who dare intrude",
-                           5, SLASHING, 20, 30);
-    shop.addTrap(pendulum);
+    shop.addTrap(new Trap("Barbed Wire", "A seemingly minor thing, which in the right circumstance can make for a very painful day",
+                          4, PIERCING, 15, 30));
 
-    Trap *stoneSoldiers = new Trap("Stone Soldiers", "Long forgotten relics of a by-gone magical era. But can still wield a sword",
-                                   5, SLASHING, 4, 5);
-    shop.addTrap(stoneSoldiers);
+    shop.addTrap(new Trap("The Protector", "Create a golem who will lay down its life to stop any intruder",
+                          10, BLUDGEONING, 30, 60));
 
-    Trap *crossbow = new Trap("Crossbow Volley", "Enemies will be left looking like a pin cushion after taking so many arrows",
-                              5, PIERCING, 20, 30);
-    shop.addTrap(crossbow);
+    shop.addTrap(new Trap("Ender Dragon’s Breath", "Stolen from a mythical beast, Ender Dragon’s Breath is potent enough to incerate any human in seconds",
+                          6, FIRE, 20, 40));
+
+    shop.addTrap(new Trap("White Walker’s Gaze", "Undead creatures which strike an impossible fear and chill into any creature",
+                          12, COLD, 35, 50));
+
+    shop.addTrap(new Trap("Mustard Gas", "Acid extracted from a now extinct species known as “Kikimore”, is vapourised to inflict a slow, agonising death",
+                          8, POISON, 10, 30));
 }
 
 //<LUKE> Basic desc of you having limited time and you must prepare. Too vague??

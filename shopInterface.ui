@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1150</width>
-    <height>800</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,18 +18,18 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>681</width>
-     <height>621</height>
+     <width>641</width>
+     <height>521</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Bahnschrift</family>
-     <pointsize>11</pointsize>
+     <pointsize>13</pointsize>
     </font>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="traps">
     <attribute name="title">
@@ -40,14 +40,14 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>661</width>
-       <height>471</height>
+       <width>611</width>
+       <height>371</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Bahnschrift</family>
-       <pointsize>10</pointsize>
+       <pointsize>11</pointsize>
       </font>
      </property>
      <property name="autoScroll">
@@ -61,12 +61,22 @@
      </attribute>
      <column>
       <property name="text">
-       <string/>
+       <string>Trap</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Trap</string>
+       <string>Damage Type</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Base Damage</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Max Damage</string>
       </property>
      </column>
      <column>
@@ -74,46 +84,97 @@
        <string>Build time</string>
       </property>
      </column>
-     <column>
-      <property name="text">
-       <string>Damage</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Quantity</string>
-      </property>
-     </column>
     </widget>
-    <widget class="QTreeWidget" name="itemDescTree">
+    <widget class="QPlainTextEdit" name="njask">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>490</y>
-       <width>661</width>
-       <height>81</height>
+       <y>360</y>
+       <width>611</width>
+       <height>41</height>
       </rect>
      </property>
-     <column>
-      <property name="text">
-       <string>Item Desc</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Trap Total</string>
-      </property>
-     </column>
+     <property name="font">
+      <font>
+       <family>Bahnschrift</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>Item Desc</string>
+     </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit">
+    <widget class="QPlainTextEdit" name="itemDesc">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>490</y>
-       <width>651</width>
-       <height>81</height>
+       <y>390</y>
+       <width>611</width>
+       <height>71</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="blueprints">
+    <attribute name="title">
+     <string>Blueprints</string>
+    </attribute>
+    <widget class="QTreeWidget" name="trapTree_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>611</width>
+       <height>451</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Bahnschrift</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="autoScroll">
+      <bool>false</bool>
+     </property>
+     <attribute name="headerDefaultSectionSize">
+      <number>125</number>
+     </attribute>
+     <attribute name="headerShowSortIndicator" stdset="0">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Blueprint</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Damage Boost Type</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Damage Boost Amount</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Build time</string>
+      </property>
+     </column>
     </widget>
    </widget>
   </widget>
@@ -121,8 +182,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
-     <width>681</width>
+     <y>540</y>
+     <width>641</width>
      <height>141</height>
     </rect>
    </property>
@@ -176,6 +237,25 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1150</width>
+     <height>700</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/Images/Direction/ZorkPics/NPCBackground.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>inventoryTree</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <resources/>
  <connections/>

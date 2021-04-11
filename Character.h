@@ -1,6 +1,5 @@
 #ifndef CHARACTER_H_
 #define CHARACTER_H_
-//#include "World.h"
 #include "Trap.h"
 #include "InventoryArrayTemp.tci"
 
@@ -14,10 +13,11 @@ private:
     InventoryTemplate<Trap> trapInventory;
 public:
     //Character();
-    Character(string description = "player");
+    Character(string description = "player", int inventorySize = 10);
     void addTrap(Trap* trap);
     Trap* getTrap(string name);
     Trap* getTrap(int n);
+    void removeTrap(string name);
     int getTrapArrLength();
     //Trap getInventorySlot(int pos);
     string printTraps();
