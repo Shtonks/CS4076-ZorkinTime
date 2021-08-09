@@ -7,25 +7,29 @@
 using namespace std;
 #include "World.h"
 
-//<ISHA> namspaces only have a global scope, any variables declared inside are global as well.
+//<ISHA> namspaces allow entities that would have a global scope have a narrower scope
+
 namespace globals{
     string bonus = "same name as another string in file but can be accessed with globals::bonus";
 }
 
-//<ISHA> eeeeeeeeeeeeeeeeeeeeeeh
-//template <class Item>
-//Item ItemLonger(Item *i1, Item *i2){
-//    return (i1->getTimeMod() > i2->getTimeMod()) ? i1 : i2;
-//}
-
-World::World() : player("player", 10, 4), shop("shop", 6, 6) {
+World::World() : bb(150), player("player", 10, 4), shop("shop", 6, 6){
     createRooms();
     createItems();
 }
 
+World::~World()
+{
+    for (int i = 0; i < 16; i++){
+        delete genRooms[i];
+    }
+
+}
+
+
 typedef struct World::roomAttbs {
     string bonus;
-    unsigned int dmgBonusNum : 3; //<ISHA> int with 3 bits, range 0-7
+    unsigned int dmgBonusNum : 3; //<ISHA> int with 3 bits vs 4 bytes, range 0-7
     roomAttbs(string b, int d){
         bonus = b; dmgBonusNum = d;
     }
@@ -61,7 +65,6 @@ void World::createRooms()  {
 
     for(int i = 0; i < numOfRooms; i++){
         genRooms[i] = new Room(roomList.at(i).bonus, roomList.at(i).dmgBonusNum);
-        //cout << genRooms[i]->getDescription() << endl;
     }
 
     //<LUKE> rooms set out so ALL join together at start
@@ -74,7 +77,7 @@ void World::createRooms()  {
     genRooms[4]->setExits(genRooms[0], genRooms[5], genRooms[8], NULL);
     genRooms[5]->setExits(genRooms[1], genRooms[6], genRooms[9], genRooms[4]);
     genRooms[6]->setExits(genRooms[2], genRooms[7], genRooms[10], genRooms[5]);
-    genRooms[7]->setExits(genRooms[6], NULL, genRooms[11], genRooms[6]);
+    genRooms[7]->setExits(genRooms[3], NULL, genRooms[11], genRooms[6]);
 
     genRooms[8]->setExits(genRooms[4], genRooms[9], genRooms[12], NULL);
     genRooms[9]->setExits(genRooms[5], genRooms[10], genRooms[13], genRooms[8]);
@@ -172,13 +175,23 @@ void World::createItems(){
     shop.addBlueprint(new Blueprint("Circle of the Snake", "", 20, POISON, 30));
 }
 
-//<LUKE> Basic desc of you having limited time and you must prepare. Too vague??
-void World::printWelcome() {
-    cout << "You have " << numMoves << " turns before death comes searching for you "
-    " and you're crystal"<< endl;
-    cout << "Make good use of you're time. Prepare"<< endl;
-    cout << endl;
-    cout << "You begin in " << currentRoom->getDescription() << endl;
+//<LUKE> Basic desc of you having limited time and you must prepare.
+string World::printWelcome() {
+    string welcome = "";
+
+    #ifdef INTRO
+        welcome = INTRO;
+        welcome += "\nYou have " + to_string(numMoves) + " turns before death comes searching for you.\n" +
+                "You must defend yourself as best you can by acquiring traps and blueprints.\n"
+                "Find your friend within the dungeon. They can help you procure said items.\n"
+                "You can place a total of 10 traps and 4 blueprints.\n The damage each trap deals will be"
+                " generated between its base damage and maximum damage.\n "
+                "Blueprints increase your potential maximum damage with traps and MUST be placed BEFORE the trap.\n"
+                "Some rooms offer bonus damage which will increase damage dealt by the trap with the corresponding damage type.\n"
+                "When an item is placed, it's there for good, so choose wisely.\n"
+                "Make good use of you're time.\n\nYou begin in a " + currentRoom->getDescription();
+    #endif
+        return welcome;
 }
 
 //Moves player in chosen direction if pathway exists

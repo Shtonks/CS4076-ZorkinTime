@@ -26,11 +26,10 @@ private slots:
     void on_trapTree_itemClicked(QTreeWidgetItem *item);
 
     void on_blueprintTree_itemClicked(QTreeWidgetItem *item);
-
 private:
     Ui::ShopInterface *ui;
     MainWindow* mainInterface;
-    QTreeWidgetItem* selectedItem;
+    QTreeWidgetItem* selectedItem = nullptr;
 };
 
 #endif // SHOPINTERFACE_H

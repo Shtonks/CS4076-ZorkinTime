@@ -83,19 +83,6 @@
      <number>24</number>
     </property>
    </widget>
-   <widget class="QPushButton" name="swordBlueprint">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>110</y>
-      <width>111</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QTreeWidget" name="placedTrapsTree">
     <property name="geometry">
      <rect>
@@ -162,7 +149,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="traps">
      <attribute name="title">
@@ -1028,7 +1015,7 @@
     <property name="font">
      <font>
       <family>Bahnschrift SemiBold</family>
-      <pointsize>17</pointsize>
+      <pointsize>28</pointsize>
      </font>
     </property>
     <property name="readOnly">
@@ -1038,8 +1025,8 @@
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Bahnschrift SemiBold'; font-size:17pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;200&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Bahnschrift SemiBold'; font-size:28pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:17pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="nextTurn">
@@ -1053,7 +1040,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="font">
      <font>
-      <family>Bahnschrift SemiBold</family>
+      <family>Bahnschrift</family>
       <pointsize>15</pointsize>
      </font>
     </property>
@@ -1084,10 +1071,15 @@ p, li { white-space: pre-wrap; }
     </property>
    </widget>
    <zorder>map</zorder>
+   <zorder>blueprint1</zorder>
+   <zorder>blueprint6</zorder>
+   <zorder>blueprint5</zorder>
+   <zorder>blueprint4</zorder>
+   <zorder>blueprint3</zorder>
+   <zorder>blueprint2</zorder>
    <zorder>textDisplay</zorder>
    <zorder>bossHealth</zorder>
    <zorder>inventoryTree</zorder>
-   <zorder>swordBlueprint</zorder>
    <zorder>room01</zorder>
    <zorder>room02</zorder>
    <zorder>room03</zorder>
@@ -1116,12 +1108,6 @@ p, li { white-space: pre-wrap; }
    <zorder>trap8</zorder>
    <zorder>trap10</zorder>
    <zorder>trap9</zorder>
-   <zorder>blueprint1</zorder>
-   <zorder>blueprint2</zorder>
-   <zorder>blueprint3</zorder>
-   <zorder>blueprint4</zorder>
-   <zorder>blueprint5</zorder>
-   <zorder>blueprint6</zorder>
    <zorder>counter</zorder>
    <zorder>nextTurn</zorder>
    <zorder>shop</zorder>

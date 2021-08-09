@@ -14,7 +14,6 @@ private:
     InventoryTemplate<Trap> trapInventory;
     InventoryTemplate<Blueprint> blueprintInv;
 public:
-    //Character();
     Character(string description, int trapInvSize, int blueprintInvSize);
     void addTrap(Trap* trap);
     Trap* getTrap(string name);
@@ -23,10 +22,9 @@ public:
     int getTrapArrLength();
     void addBlueprint(Blueprint* blueprint);
     Blueprint* getBlueprint(string name);
+    Blueprint* getBlueprint(int n);
     void removeBlueprint(string name);
     int getBlueprintArrLength();
-    Blueprint* getBlueprint(int n);
-    string printTraps();
 };
 
 #endif /*CHARACTER_H_*/

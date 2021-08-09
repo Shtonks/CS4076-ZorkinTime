@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Item.h"
-//#include "Bigbad.h"
 #include "Riskfactor.h"
 #include <string>
 #include <time.h>
@@ -35,4 +34,5 @@ class Trap : public Item, public RiskFactor {
         int getBaseDmg();
         void setVulnerable(int vulnerablility);
         void setResistant(int resistance);
+        string printInfo();
 };

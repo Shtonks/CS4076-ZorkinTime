@@ -23,8 +23,6 @@ ShopInterface::ShopInterface(MainWindow *parent) :
 ShopInterface::~ShopInterface()
 {
     delete ui;
-    ///<LUKE > dunno if these are needed????
-    //delete mainInterface;
     delete selectedItem;
 }
 
@@ -39,6 +37,7 @@ void ShopInterface::on_buy_clicked()
         mainInterface->addPlayerItem(mainInterface->world->shop.getTrap(selectedItem->text(0).toStdString()));
     }
     else if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
+        ui->itemDesc->appendPlainText(selectedItem->text(0));
         mainInterface->addPlayerItem(mainInterface->world->shop.getBlueprint(selectedItem->text(0).toStdString()));
     }
 }

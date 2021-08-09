@@ -6,7 +6,6 @@ Item::Item(string n, string d, int t) {
 	name = n;
 	description = d;
     timeMod = t;
-    amount = 1;
 }
 
 string Item::getName() const{
@@ -33,13 +32,17 @@ void Item::setTimeMod(int newMod){
 	timeMod = newMod;
 }
 
+//Operator overloading
 bool Item::operator== (const Item & rhs) const {
    return (name == rhs.getName());
 }
 
-string Item::toString(){
-    return "Name: " + name +
-           "\nAmount: " + to_string(amount) +
-           "\nTime Taken: " + to_string(timeMod) +
-           "\nDescription: " + description;
+//Template function to find maximum num
+template <typename T>
+T getMax(T num1, T num2) {
+    int max = num1;
+    if(num1 < num2){
+        max = num2;
+    }
+    return max;
 }

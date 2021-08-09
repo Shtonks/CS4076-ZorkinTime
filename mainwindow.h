@@ -4,8 +4,10 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QMainWindow>
-#include "World.h"
+#include <QPixmap>
 
+#include "World.h"
+#include "Character.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +25,6 @@ private slots:
     void on_Up_clicked();
     void on_Down_clicked();
     void on_Right_clicked();
-    void on_swordBlueprint_clicked();
     void addItem(Item *thing, QTreeWidget *theTree);
     void on_place_clicked();
 
@@ -45,11 +46,14 @@ private slots:
 
     void on_blueprintTree_currentItemChanged(QTreeWidgetItem *current);
 
+    void on_bossHealth_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
     World *world;
     void movePlayerHighlight();
     void addPlayerItem(Item *thing);
+    void endSequence();
     QTreeWidgetItem* selectedItem;
     int playerTrapTotal = 0;
     int playerBlueTotal = 0;

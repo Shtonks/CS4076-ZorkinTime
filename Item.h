@@ -1,8 +1,6 @@
 #pragma once
 
-#include <map>
 #include <string>
-#include <iostream>
 using namespace std;
 
 class Item {
@@ -11,8 +9,6 @@ class Item {
 		string description;
 		string name;
 		int timeMod;
-        int amount;
-        bool owned;
 
     public:
         Item();
@@ -24,6 +20,5 @@ class Item {
         void setDescription(string desc);
         int getTimeMod();
 		void setTimeMod(int newMod);
-        bool operator== (const Item & rhs) const;   // c1 == c2
-        string toString();
+        bool operator== (const Item & rhs) const;
 };

@@ -5,6 +5,18 @@ Room::Room(string description, int dmgType) {
     this->description = description;
     findBonusDmgType(dmgType);
 }
+//Copy Constructor
+Room::Room(const Room &r){
+    trapInRoom = new Trap;
+    *trapInRoom = *r.trapInRoom;
+    blueprintInRoom = new Blueprint;
+    *blueprintInRoom = *r.blueprintInRoom;
+}
+
+Room::~Room(){
+    delete trapInRoom;
+    delete blueprintInRoom;
+}
 
 void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 	if (north != NULL)
@@ -19,11 +31,9 @@ void Room::setExits(Room *north, Room *east, Room *south, Room *west) {
 
 
 string Room::getDescription() {
-    return description + "(Bonus damage type is " + bonusDmgType + ")";
+    return description + " (Bonus damage type is " + bonusDmgType + ")";
 }
 
-//<LUKE> Tried to use a switch statement here, couldn't get working
-//<ISHA> Got it :)
 void Room::findBonusDmgType(int type){
     switch (type){
         case SLASHING: bonusDmgType = "slashing"; icon = "overlay-slash.png"; break;
@@ -40,11 +50,10 @@ inline string Room::getBonusDmgType(){
 }
 
 Room* Room::nextRoom(string direction) {
-	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
+    map<string, Room*>::iterator next = exits.find(direction);
 	if (next == exits.end())
-		return NULL; // if exits.end() was returned, there's no room in that direction.
-	return next->second; // If there is a room, remove the "second" (Room*)
-				// part of the "pair" (<string, Room*>) and return it.
+        return NULL;
+    return next->second;
 }
 
 
@@ -53,8 +62,6 @@ void Room::placeTrap(Trap& t){
         return;
     }
     if(t.getDmgType().compare(bonusDmgType)){
-        //<LUKE> Only temp. May need to be balanced
-        //Future luke fix
         t.setDealtDmg(1.5);
     }
     trapInRoom = &t;

@@ -1,7 +1,5 @@
 #include "Character.h"
 
-//<LUKE><TBD>Anywhere TBD means To Be Deleted
-
 //<LUKE> Implemented intializer list for trap inventory
 Character::Character(string description, int trapInvSize, int blueprintInvSize)
     : trapInventory(trapInvSize), blueprintInv(blueprintInvSize) {
@@ -48,13 +46,4 @@ int Character::getBlueprintArrLength(){
 
 int Character::getTrapArrLength(){
     return trapInventory.getLength();
-}
-
-
-string Character::printTraps(){
-    string all = "";
-    for(int i = 0; i < trapInventory.getLength(); i++){
-        all = all + "   " + trapInventory[i].getName() + "///";
-    }
-    return all;
 }

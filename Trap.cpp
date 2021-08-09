@@ -70,3 +70,7 @@ void Trap::setResistant(int resistance){
     if(dmgType == resistance) resistant = true;
     if(resistant) dealtDmg /= 2;
 }
+
+string Trap::printInfo(){
+    return name + description + to_string(timeMod) + to_string(dmgType) + to_string(baseDmg) + to_string(maxDmg);
+}

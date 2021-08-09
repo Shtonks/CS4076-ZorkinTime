@@ -38,7 +38,7 @@ public:
     }
 
 
-    //<LUKE> I took this from lec slides since is extremely useful bit of code for a custom array in my opinion
+    //<LUKE> I took this from lec slides since is extremely useful bit of code for a custom array
     T &operator[](int subscript)
     {
         if(subscript < 0 || subscript >= length)
@@ -47,7 +47,7 @@ public:
         return inventory[subscript];
     }
 
-    //<LUKE> Have chosen not to delete empty space in array, as in this code I think the inventory will flucuate enough to justify that
+    //<LUKE> Removes element from anywhere in array by shifting all elemets over to the left by one
     void remove(T &item){
         for(int i = 0; i < length; i++){
             if(inventory[i] == item){
@@ -61,7 +61,7 @@ public:
     }
 
 
-    //<LUKE> Add item to array if space exists, if not, exapnd array and add it
+    //<LUKE> Add item to array if space exists, else throw error
     void add(const T &item){
         for(int i = 0; i < length; i++){
             if(inventory[i].getName() == ""){

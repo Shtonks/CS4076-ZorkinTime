@@ -13,7 +13,6 @@ public:
     void enhanceTrap(Trap& t);
     string getDmgType();
     int getIncrease();
-
 };
 
 #endif // BLUEPRINT_H

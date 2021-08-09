@@ -4,10 +4,7 @@
         <file>ZorkPics/leftArrow.png</file>
         <file>ZorkPics/rightArrow.png</file>
         <file>ZorkPics/upArrow.png</file>
-        <file>ZorkPics/Dark_green.png</file>
         <file>ZorkPics/pigg.jpg</file>
-        <file>ZorkPics/spearRoom.png</file>
-        <file>ZorkPics/SwordRoom.png</file>
         <file>ZorkPics/map.png</file>
         <file>ZorkPics/highlight.png</file>
         <file>ZorkPics/item-blue.png</file>
@@ -20,21 +17,19 @@
         <file>ZorkPics/overlay-poison.png</file>
         <file>ZorkPics/overlay-slash.png</file>
         <file>ZorkPics/Barbed Wire.png</file>
-        <file>ZorkPics/circle-bludgeon.png</file>
-        <file>ZorkPics/circle-fire.png</file>
-        <file>ZorkPics/circle-ice.png</file>
-        <file>ZorkPics/circle-pierce.png</file>
-        <file>ZorkPics/circle-poison.png</file>
-        <file>ZorkPics/circle-slash.png</file>
         <file>ZorkPics/Ender Dragon’s Breath.png</file>
         <file>ZorkPics/NPCBackground.png</file>
         <file>ZorkPics/NPC-token.png</file>
         <file>ZorkPics/Pendulum of Regret.png</file>
-        <file>ZorkPics/player.png</file>
-        <file>ZorkPics/swordBlueprint.png</file>
         <file>ZorkPics/The Protector.png</file>
         <file>ZorkPics/White Walker’s Gaze.png</file>
         <file>ZorkPics/Mustard Gas.png</file>
+        <file>ZorkPics/Circle of Flame.png</file>
+        <file>ZorkPics/Circle of Frost.png</file>
+        <file>ZorkPics/Circle of the Mace.png</file>
+        <file>ZorkPics/Circle of the Snake.png</file>
+        <file>ZorkPics/Circle of the Spear.png</file>
+        <file>ZorkPics/Circle of the Sword.png</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>
 </RCC>

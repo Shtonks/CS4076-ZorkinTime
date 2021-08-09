@@ -1,11 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "World.h"
-#include "Character.h"
 #include "shopInterface.h"
-#include <QTreeView>
-#include <QTreeWidgetItem>
-#include <QPixmap>
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow), world(new World())
 {
@@ -32,13 +28,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->counter->setAlignment(Qt::AlignCenter);
 
     movePlayerHighlight();
-    //<LUKE> Not working, easy fix. I just have more pressing things to do rn
-    world->printWelcome();
+    //<LUKE> Print welcome in textDisplay
+    ui->textDisplay->appendPlainText(QString::fromStdString(world->printWelcome()));
+
+    //<ISHA> setting the range and value for BB healthbar
+    ui->bossHealth->setRange(0,world->bb.getMaxHealth());
+    ui->bossHealth->setValue(world->bb.getMaxHealth());
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete world;
 }
 
 //<LUKE> Function to have a highlight display wherever the player currently is on the map
@@ -47,8 +48,6 @@ void MainWindow::movePlayerHighlight(){
     ui->playerRoom->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
     QPixmap pix(QString::fromStdString(":/Images/Direction/ZorkPics/highlight.png"));
     ui->playerRoom->setPixmap(pix);
-    ui->textDisplay->appendPlainText(QString::fromStdString(world->getCurrentRoomLabel()));
-
 }
 
 
@@ -79,7 +78,6 @@ void MainWindow::on_Right_clicked()
         movePlayerHighlight();
         on_nextTurn_clicked();
     }
-
 }
 
 void MainWindow::on_Left_clicked()
@@ -95,6 +93,7 @@ void MainWindow::on_Left_clicked()
 void MainWindow::on_talk_clicked()
 {
     if(world->getShopRoomLabel() == world->getCurrentRoomLabel()){
+        ui->textDisplay->appendPlainText("Hello darling, care to obtain some magical goods?");
         ShopInterface shopUI(this);
         shopUI.move(730, 0);
         shopUI.setModal(true);
@@ -102,37 +101,29 @@ void MainWindow::on_talk_clicked()
     }
 }
 
-void MainWindow::on_swordBlueprint_clicked()
-{
-    ui->textDisplay->appendPlainText(QString::fromStdString(to_string(playerTrapTotal)));
-}
-
 void MainWindow::addPlayerItem(Item *thing){
     try {
         if(Trap* trap = dynamic_cast<Trap*>(thing)){
             world->player.addTrap(trap);
-            ui->textDisplay->appendPlainText("Adding item");
 
             if(playerTrapTotal < 10){
-                ui->textDisplay->appendPlainText("Insde if");
-
+                ui->textDisplay->appendPlainText("You receivce a " + QString::fromStdString(trap->getName()));
                 addItem(thing, ui->trapTree);
                 playerTrapTotal++;
-                ui->textDisplay->appendPlainText(QString::fromStdString(world->player.printTraps()));
-
             }
             else{
-                ui->textDisplay->appendPlainText("You hit your trap limit, sorry my guy");
+                ui->textDisplay->appendPlainText("You've hit your trap limit of 10");
             }
         }
         else if(Blueprint* blue = dynamic_cast<Blueprint*>(thing)){
             world->player.addBlueprint(blue);
             if(playerBlueTotal < 4){
+                ui->textDisplay->appendPlainText("You receivce a " + QString::fromStdString(blue->getName()));
                 addItem(thing, ui->blueprintTree);
                 playerBlueTotal++;
             }
             else{
-                ui->textDisplay->appendPlainText("You hit your blueprint limit, sorry my guy");
+                ui->textDisplay->appendPlainText("You've hit your blueprint limit of 4");
             }
         }
     }  catch (out_of_range &oop) {
@@ -175,14 +166,14 @@ class TrapExists : public exception{
 void MainWindow::on_place_clicked()
 {
     try {
+        //check room empty
         if(world->getCurrentRoom()->getTrapInRoom() == nullptr){
+            //check trap selected
             if(ui->trapTree->selectionModel()->isSelected(ui->trapTree->currentIndex())){
                 QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
                 QLabel *trapName;
                 for(int i = 0; i < 10; i++){
                     string trapSearchName = "trap" + std::to_string(i+1);
-                    //TEMP
-                    ui->textDisplay->appendPlainText(QString::fromStdString(trapSearchName));
                     trapName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(trapSearchName), Qt::FindDirectChildrenOnly);
                     if(trapName->width() != roomName->width()){
                         //<LUKE> At this point, we def successful
@@ -193,10 +184,12 @@ void MainWindow::on_place_clicked()
 
                         world->numMoves -= stoi(selectedItem->text(4).toStdString());
                         ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
+                        ui->counter->setAlignment(Qt::AlignCenter);
 
                         string name = selectedItem->text(0).toStdString();
                         addItem(world->player.getTrap(name), ui->placedTrapsTree);
-                        world->getCurrentRoom()->setTrapInRoom(world->player.getTrap(name));
+                        world->getCurrentRoom()->setTrapInRoom(world->shop.getTrap(name));
+                        ui->textDisplay->appendPlainText("Trap added to this room: " + QString::fromStdString(world->player.getTrap(name)->getName()));
                         world->player.removeTrap(name);
 
                         delete selectedItem;
@@ -204,7 +197,11 @@ void MainWindow::on_place_clicked()
                     }
                 }
             }
-        }else if(world->getCurrentRoom()->getBlueprintInRoom() == nullptr){
+        }else{
+            TrapExists y;
+            throw y;
+        }
+        if(world->getCurrentRoom()->getBlueprintInRoom() == nullptr){
             if(ui->blueprintTree->selectionModel()->isSelected(ui->blueprintTree->currentIndex())){
                 QLabel *roomName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(world->getCurrentRoomLabel()), Qt::FindDirectChildrenOnly);
                 QLabel *blueprintName;
@@ -213,29 +210,31 @@ void MainWindow::on_place_clicked()
                     blueprintName = ui->centralwidget->findChild<QLabel *>(QString::fromStdString(blueprintSearchName), Qt::FindDirectChildrenOnly);
                     if(blueprintName->width() != roomName->width()){
                         blueprintName->setGeometry(QRect(roomName->x(), roomName->y(), roomName->width(), roomName->height()));
-                        string blueprintStringName = ":/Images/Direction/ZorkPics/player.png";
+                        string blueprintStringName = ":/Images/Direction/ZorkPics/" + selectedItem->text(0).toStdString() + ".png";
                         QPixmap pix(QString::fromStdString(blueprintStringName));
                         blueprintName->setPixmap(pix);
 
                         world->numMoves -= stoi(selectedItem->text(3).toStdString());
                         ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
+                        ui->counter->setAlignment(Qt::AlignCenter);
 
                         string name = selectedItem->text(0).toStdString();
                         addItem(world->player.getBlueprint(name), ui->placedTrapsTree);
-                        world->getCurrentRoom()->setBlueprintInRoom(world->player.getBlueprint(name));
+                        world->getCurrentRoom()->setBlueprintInRoom(world->shop.getBlueprint(name));
+                        ui->textDisplay->appendPlainText("Blueprint added to this room: " + QString::fromStdString(world->player.getBlueprint(name)->getName()));
                         world->player.removeBlueprint(name);
+
+                        //world->getCurrentRoom()->getBlueprintInRoom();
 
                         delete selectedItem;
                         return;
                     }
                 }
              }
-        else{
-                    TrapExists x;
-                    throw x;
-                }
+        }else{
+            TrapExists x;
+            throw x;
         }
-
     }
     catch (const TrapExists& e) {
         ui->textDisplay->appendPlainText(e.what());
@@ -282,6 +281,8 @@ void MainWindow::on_nextTurn_clicked()
 {
     world->numMoves -= 1;
     ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
+    ui->counter->setAlignment(Qt::AlignCenter);
+    if(world->numMoves <= 0) endSequence();
 }
 
 
@@ -295,4 +296,47 @@ void MainWindow::on_trapTree_currentItemChanged(QTreeWidgetItem *current)
 void MainWindow::on_blueprintTree_currentItemChanged(QTreeWidgetItem *current)
 {
     selectedItem = current;
+}
+
+void MainWindow::on_bossHealth_valueChanged(int value)
+{
+    ui->bossHealth->setValue(value);
+}
+
+void MainWindow::endSequence(){
+    world->numMoves = 0;
+    ui->counter->setText(QString::fromStdString(to_string(world->numMoves)));
+    ui->counter->setAlignment(Qt::AlignCenter);
+    ui->Down->setEnabled(false);
+    ui->Left->setEnabled(false);
+    ui->Right->setEnabled(false);
+    ui->Up->setEnabled(false);
+    ui->place->setEnabled(false);
+    ui->destroy->setEnabled(false);
+    ui->talk->setEnabled(false);
+    ui->nextTurn->setEnabled(false);
+    ui->textDisplay->appendPlainText("He has awakened.");
+    ui->textDisplay->appendPlainText("He's resistant to " + QString::fromStdString(world->bb.getResistanceString()) + ". He takes half as much damage of this type.");
+    ui->textDisplay->appendPlainText("He's vulnerable to " + QString::fromStdString(world->bb.getVulnerabilityString() + ". He takes twice as much damage of this type."));
+    for(int i = 0; i < world->numOfRooms; i++){
+        Trap* ti =  world->genRooms[i]->getTrapInRoom();
+        if(ti == nullptr) continue;
+        srand(time(0));
+        ti->setDealtDmg();
+        ti->setResistant(world->bb.getResistance());
+        ti->setVulnerable(world->bb.getVulnerability());
+        world->bb.takeDmg(ti->getDealtDmg());
+        ui->textDisplay->appendPlainText("In room " + QString::number(i+1) +", the " + QString::fromStdString(world->genRooms[i]->getDescription()) + " and " +
+                                        "the trap, " + QString::fromStdString(ti->getName()) + ", "
+                                         + "dealt " + QString::number(ti->getDealtDmg()) + " " + QString::fromStdString(ti->getDmgType()) + " damage.");
+        on_bossHealth_valueChanged(world->bb.getCurrHealth());
+        if(world->bb.getCurrHealth() <= 0) {
+            on_bossHealth_valueChanged(0);
+             ui->textDisplay->appendPlainText("You manage to bring him down to 0!");
+             break;
+        }
+        ui->textDisplay->appendPlainText("He's at " + QString::number(world->bb.getCurrHealth()) + " hp!");
+    }
+    (world->bb.getCurrHealth() > 0) ? ui->textDisplay->appendPlainText("Your foe still lives. He will wreak havoc onto the world. You have failed.") :
+                                      ui->textDisplay->appendPlainText("You've defeated the foe! He's vanquished from the earth and you've saved the people. Congratulations!");
 }
